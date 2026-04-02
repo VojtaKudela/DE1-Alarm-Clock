@@ -1,4 +1,4 @@
-# DE1_Alarm Clock
+# DE1-Alarm Clock
 
 1. Lukáš Katrňák ()
 2. Vojtěch Kudela ()
