@@ -4,6 +4,7 @@
 2. Vojtěch Kudela ()
 3. Jan Jaroslav Koláček ()
 
+## 
 ## Co udělat do projektu
 
 - [ ] Nahrát blokové schéma projektu
