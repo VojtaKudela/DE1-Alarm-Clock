@@ -6,7 +6,7 @@
 
 ## Co udělat do projektu
 
-# Nahrát blokové schéma projektu
+- [ ] Nahrát blokové schéma projektu
 
 # Displej
 - [ ] vytvořit převodní tabulku pro symboly
