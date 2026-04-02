@@ -32,4 +32,3 @@
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
 2. [DATASHEET for Pasive Buzzer HW-508 V0.2](https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf).
-DATASHEET for Pasive Buzzer HW-508 V0.2 => https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf
