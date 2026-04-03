@@ -5,7 +5,7 @@
 3. Jan Jaroslav Koláček ()
 
 ### Blokové schéma se vstupními a výstupními periferiemi
-![Blokové schéma Alarm Clock](https://github.com/VojtaKudela/BPC-DE1-topic_4/blob/main/Picture/1713725654572.jpg).
+![Blokové schéma Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20Alarm%20Clock.jpg).
 
 ## Co udělat do projektu
 
