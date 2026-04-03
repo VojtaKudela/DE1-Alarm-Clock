@@ -5,7 +5,7 @@
 3. Jan Jaroslav Koláček ()
 
 ### Blokové schéma Alarm Clock
-![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20Alarm%20Clock.jpg).
+![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Alarm%20Clock.drawio.png).
 
 ## Co udělat do projektu
 
