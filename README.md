@@ -35,9 +35,9 @@
 ## Pomoc s Githubem
 1. [Jak upravovat README](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 2. [Vytvoření složky](https://www.youtube.com/watch?v=FvCsnUgAdWA).
-3. [Vytváření diagramů draw.io](https://www.drawio.com/).
-4. [Jak nahrát soubor](https://www.youtube.com/watch?v=ATVm6ACERu8).
+3. [Jak nahrát soubor](https://www.youtube.com/watch?v=ATVm6ACERu8).
 
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
 2. [DATASHEET for Pasive Buzzer HW-508 V0.2](https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf).
+3. [Vytváření diagramů draw.io](https://www.drawio.com/).
