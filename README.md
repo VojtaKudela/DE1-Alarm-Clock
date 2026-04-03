@@ -4,8 +4,8 @@
 2. Vojtěch Kudela ()
 3. Jan Jaroslav Koláček ()
 
-### Blokové schéma se vstupními a výstupními periferiemi
-![Blokové schéma Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20Alarm%20Clock.jpg).
+### Blokové schéma Alarm Clock
+![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20Alarm%20Clock.jpg).
 
 ## Co udělat do projektu
 
