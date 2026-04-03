@@ -3,7 +3,10 @@
 1. Lukáš Katrňák ()
 2. Vojtěch Kudela ()
 3. Jan Jaroslav Koláček ()
- 
+
+### Blokové schéma se vstupními a výstupními periferiemi
+![Blokové schéma Alarm Clock](https://github.com/VojtaKudela/BPC-DE1-topic_4/blob/main/Picture/1713725654572.jpg).
+
 ## Co udělat do projektu
 
 - [ ] Nahrát blokové schéma projektu
