@@ -9,7 +9,7 @@
 
 ## Co udělat do projektu
 
-- [ ] Nahrát blokové schéma projektu
+- [x] Nahrát blokové schéma projektu
 - [ ] nahrát soubor XDC -> co budeme používat
 
 ### Hodiny
