@@ -7,6 +7,21 @@
 ### Blokové schéma Alarm Clock
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Alarm%20Clock.drawio.png).
 
+### Popis jednotlivých periferií 
+_**Vstupní perifirie**_
+- CLK 100MHz -> vstupné hodinový tak, pro řízení hodin
+- BTNU a BTND -> tlačítka pro nastavení šasu hodin  alarmů
+- BTNL a BTNR -> přechod mezi módy a mezi HH a MM při nastavování času
+- BTNC -> slouží k **nastavoání/potvrzování** (k nastavení dojde, pokud bude stlačeno po dobu minimálně 2 sekund)
+- SW [0:3] -> vypínače slouží k zapnití a vypnutí budíku
+
+_**Výstupní perifirie**_
+- AN [7:0] -> slouží k řízení anod sedmisegmentového displeje
+- SEG [6:0] -> řízení jednotlivých segmentů každého sedmisegmentového displeje
+- BUZZER -> řízení alarmu (přiřadit periferii)
+- LED_OUT [0:15] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
+
+
 ## Co udělat do projektu
 
 - [x] Nahrát blokové schéma projektu
@@ -24,7 +39,7 @@
 
 ### Tlačítka
 - [ ] vytvoření stavového automatu pro jejich ovládání
-- [ ] nastavení času (BTNU a BTND), přecházení mezi hodinami a alarmem (BNTL a BNTR) a pomocí prostředního (BTNC) bude docházet k nastavení (SET)
+- [ ] nastavení času (BTNU a BTND), přecházení mezi módy (hodiny a alarm) (BNTL a BNTR) + přechod při nastavování času (HH:MM) a pomocí prostředního (BTNC) bude docházet k nastavení (SET)/ potvrzování
 
 ### Alarm
 - [ ] nastavení času se zvukovým výstupem (přiřazení periferie) a světelnou signalizací pomocí LED nad switchy
