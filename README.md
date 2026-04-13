@@ -52,7 +52,7 @@ _**Výstupní perifirie**_
 2. [DATASHEET for Pasive Buzzer HW-508 V0.2](https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf).
 3. [Vytváření diagramů draw.io](https://www.drawio.com/).
 
-Pomoc s Githubem
+###Pomoc s Githubem
 4. [Jak upravovat README](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 5. [Vytvoření složky](https://www.youtube.com/watch?v=FvCsnUgAdWA).
 6. [Jak nahrát soubor](https://www.youtube.com/watch?v=ATVm6ACERu8).
