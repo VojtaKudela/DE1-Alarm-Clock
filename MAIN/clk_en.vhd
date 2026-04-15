@@ -19,7 +19,7 @@ library ieee;
 -------------------------------------------------
 
 entity clk_en is
-    generic ( G_MAX : positive := 5 );  --! Number of clock cycles between pulses
+    generic ( G_MAX : positive := 50_000_000 );  --! Number of clock cycles between pulses
     port (
         clk : in  std_logic;  --! Main clock
         rst : in  std_logic;  --! High-active synchronous reset
