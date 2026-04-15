@@ -1,48 +1,75 @@
-library ieee;
-use ieee.std_logic_1164.all;
+----------------------------------------------------------------------------------
+-- Module Name: bin2seg - Behavioral
+-- Description: 7-segment decoder with numbers 0-9 and custom characters
+--              (A, L, _, H, o, d). Active low (0 = ON).
+----------------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
 
 entity bin2seg is
-    port (
-        bin : in  std_logic_vector(3 downto 0);
-        ena : in  std_logic; -- '1' = sviti, '0' = zhasnuto (mezera)
-        seg : out std_logic_vector(6 downto 0)
-    );
-end entity bin2seg;
+    Port ( clear : in STD_LOGIC;
+           bin : in STD_LOGIC_VECTOR (4 downto 0);
+           seg : out STD_LOGIC_VECTOR (6 downto 0));
+end bin2seg;
 
-architecture behavioral of bin2seg is
+architecture Behavioral of bin2seg is
+
 begin
-    p_decoder : process(bin, ena)
-    begin
-        -- Kdyz neni enable aktivni, zhasni cely znak (mezera)
-        if ena = '0' then
-            seg <= "1111111"; 
-        else
-            -- Jinak dekoduj 4-bitovy vstup
-            case bin is
-                -- Cisla 0-9
-                when x"0" => seg <= "1000000"; -- 0
-                when x"1" => seg <= "1111001"; -- 1
-                when x"2" => seg <= "0100100"; -- 2
-                when x"3" => seg <= "0110000"; -- 3
-                when x"4" => seg <= "0011001"; -- 4
-                when x"5" => seg <= "0010010"; -- 5
-                when x"6" => seg <= "0000010"; -- 6
-                when x"7" => seg <= "1111000"; -- 7
-                when x"8" => seg <= "0000000"; -- 8
-                when x"9" => seg <= "0010000"; -- 9
-                
-                -- Pismena pro Alarm (AL)
-                when x"A" => seg <= "0001000"; -- A
-                when x"B" => seg <= "1000111"; -- L 
-                
-                -- Pismena pro Time (tInE)
-                when x"C" => seg <= "0000111"; -- t
-                when x"D" => seg <= "1111001"; -- I (stejne jako 1)
-                when x"E" => seg <= "0101011"; -- n
-                when x"F" => seg <= "0000110"; -- E
-                
-                when others => seg <= "1111111";
-            end case;
-        end if;
-    end process p_decoder;
-end architecture behavioral;
+-- This combinational process decodes binary
+-- input (`bin`) into 7-segment display output
+-- (`seg`) for a Common Anode configuration.
+p_7seg_decoder : process (bin, clear) is
+begin
+
+  if (clear = '1') then
+    seg <= "1111111";  -- Clear the display
+  else
+
+    case bin is
+       -- Numbers 0 - 9
+       when "00000" => 
+        seg <= "0000001";  -- 0
+       when "00001" =>
+        seg <= "1001111";  -- 1
+       when "00010" =>
+        seg <= "0010010";  -- 2
+       when "00011" =>
+        seg <= "0000110";  -- 3
+       when "00100" =>
+        seg <= "1001100";  -- 4
+       when "00101" =>
+        seg <= "0100100";  -- 5
+       when "00110" =>
+        seg <= "0100000";  -- 6
+       when "00111" =>
+        seg <= "0001111";  -- 7
+       when "01000" =>
+        seg <= "0000000";  -- 8
+       when "01001" =>
+        seg <= "0000100";  -- 9
+
+       -- Custom characters
+       when "01010" =>
+        seg <= "0001000";  -- A
+       when "01011" =>
+        seg <= "1110001";  -- L      
+       when "01100" =>
+        seg <= "1110111";  -- _ 
+       when "01101" =>
+        seg <= "1001000";  -- H            
+       when "01110" =>
+        seg <= "1100010";  -- o
+       when "01111" =>
+        seg <= "1000010";  -- d
+
+       -- All other states clear the display
+       when others =>
+        seg <= "1111111";  -- empty
+      
+    end case;
+
+  end if;    
+end process p_7seg_decoder;
+
+end Behavioral;
