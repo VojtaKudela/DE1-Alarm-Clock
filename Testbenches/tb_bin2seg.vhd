@@ -1,60 +1,72 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
+-- Testbench entita je vzdy prazdna
 entity tb_bin2seg is
-    -- Testbench nema zadne porty
 end entity tb_bin2seg;
 
 architecture testbench of tb_bin2seg is
 
-    signal sig_bin : std_logic_vector(3 downto 0);
-    signal sig_ena : std_logic := '1';
-    signal sig_seg : std_logic_vector(6 downto 0);
+    -- Vnitrni signaly pro pripojeni k testovanemu modulu (UUT)
+    signal sig_clear : std_logic;
+    signal sig_bin   : std_logic_vector(4 downto 0);
+    signal sig_seg   : std_logic_vector(6 downto 0);
 
 begin
 
+    -- Instanciace testovaného modulu (Unit Under Test)
     uut_bin2seg : entity work.bin2seg
         port map (
-            bin => sig_bin,
-            ena => sig_ena,
-            seg => sig_seg
+            clear => sig_clear,
+            bin   => sig_bin,
+            seg   => sig_seg
         );
 
+    --------------------------------------------------------------------
+    -- Hlavni stimulacni proces
+    --------------------------------------------------------------------
     p_stimulus : process
     begin
-        -- 1. Test cisel 0-9
-        report "Testovani cislic 0-9";
-        sig_ena <= '1';
-        
-        sig_bin <= x"0"; wait for 10 ns;
-        sig_bin <= x"1"; wait for 10 ns;
-        sig_bin <= x"2"; wait for 10 ns;
-        sig_bin <= x"3"; wait for 10 ns;
-        sig_bin <= x"4"; wait for 10 ns;
-        sig_bin <= x"5"; wait for 10 ns;
-        sig_bin <= x"6"; wait for 10 ns;
-        sig_bin <= x"7"; wait for 10 ns;
-        sig_bin <= x"8"; wait for 10 ns;
-        sig_bin <= x"9"; wait for 10 ns;
+        report "Zacatek simulace modulu bin2seg..." severity note;
 
-        -- 2. Test pismen
-        report "Testovani pismen A, L, t, I, n, E";
-        sig_bin <= x"A"; wait for 10 ns; -- "A"
-        sig_bin <= x"B"; wait for 10 ns; -- "L"
-        sig_bin <= x"C"; wait for 10 ns; -- "t"
-        sig_bin <= x"D"; wait for 10 ns; -- "I"
-        sig_bin <= x"E"; wait for 10 ns; -- "n"
-        sig_bin <= x"F"; wait for 10 ns; -- "E"
+        -- 1. Test funkce Clear (reset)
+        report "Test: Clear = 1 (Ocekavano 1111111 / Zhasnuto)";
+        sig_clear <= '1';
+        sig_bin   <= "00000"; -- Binarne 0
+        wait for 10 ns;
 
-        -- 3. Test zhasnuti (Mezera)
-        report "Testovani funkce Enable (Mezera)";
-        sig_ena <= '0';
-        sig_bin <= x"0"; wait for 10 ns; -- Melo by zustat zhasnuto
-        sig_bin <= x"8"; wait for 10 ns; -- Melo by zustat zhasnuto
+        -- Vypnuti funkce Clear pro zbytek testu
+        sig_clear <= '0';
+        wait for 10 ns;
 
-        -- Konec simulace
-        wait;
+        -- 2. Test cislic 0 az 9
+        report "Test: Cislice 0-9";
+        sig_bin <= "00000"; wait for 10 ns; -- 0
+        sig_bin <= "00001"; wait for 10 ns; -- 1
+        sig_bin <= "00010"; wait for 10 ns; -- 2
+        sig_bin <= "00011"; wait for 10 ns; -- 3
+        sig_bin <= "00100"; wait for 10 ns; -- 4
+        sig_bin <= "00101"; wait for 10 ns; -- 5
+        sig_bin <= "00110"; wait for 10 ns; -- 6
+        sig_bin <= "00111"; wait for 10 ns; -- 7
+        sig_bin <= "01000"; wait for 10 ns; -- 8
+        sig_bin <= "01001"; wait for 10 ns; -- 9
+
+        -- 3. Test specialnich znaku
+        report "Test: Specialni znaky A, L, _, H, o, d";
+        sig_bin <= "01010"; wait for 10 ns; -- A
+        sig_bin <= "01011"; wait for 10 ns; -- L
+        sig_bin <= "01100"; wait for 10 ns; -- _
+        sig_bin <= "01101"; wait for 10 ns; -- H
+        sig_bin <= "01110"; wait for 10 ns; -- o
+        sig_bin <= "01111"; wait for 10 ns; -- d
+
+        -- 4. Test nedefinovaneho vstupu (mel by zhasnout displej)
+        report "Test: Hodnota mimo rozsah (Ocekavano 1111111 / Zhasnuto)";
+        sig_bin <= "10000"; wait for 10 ns; -- 16
+
+        report "Simulace uspesne dokoncena." severity note;
+        wait; -- Zastaveni simulace
     end process p_stimulus;
 
 end architecture testbench;
