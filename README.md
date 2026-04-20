@@ -7,6 +7,28 @@
 ### Blokové schéma Alarm Clock
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Alarm_clock.drawio%20(1).png).
 
+## Hardwarový popis a demo aplikace
+
+### Náhled na zařízení
+
+### Top level
+
+## Sofwarový popis
+
+### Display
+
+### Nastavovíní hodin a budíku
+
+### Alarm
+
+## Instrukční návod
+
+### Popis částí
+
+### Nastavení času
+
+### Video ukázka
+
 ### Popis jednotlivých periferií 
 _**Vstupní perifirie**_
 - CLK 100MHz -> vstupné hodinový tak, pro řízení hodin
@@ -32,10 +54,10 @@ _**Výstupní perifirie**_
 - [ ] vytvoření generátor hodinového signálu a čítače, pomocí kterého se následně bude zobrazovat čas 
 
 ### Displej
-- [ ] vytvořit převodní tabulku pro symboly
+- [x] vytvořit převodní tabulku pro symboly
 - [ ] vytvořit řízení 7 segmentu (zobrazení symbolů) a jednotlivých anod segmentů (přepínání 2ms)
 - [ ] tečka mezi HH a MM bude předtavovat sekundy (bude blikat)
-- [ ] blikání, pokud bude docházet k nastavování času hodin nebo alarmu (MM bliká, pokud nastavuji HH a naopak)
+- [ ] blikání, pokud bude docházet k nastavování času hodin nebo alarmu (MM bliká, pokud nastavuji HH a naopak) -> možná vynecháme
 
 ### Tlačítka
 - [ ] vytvoření stavového automatu pro jejich ovládání
@@ -44,8 +66,8 @@ _**Výstupní perifirie**_
 ### Alarm
 - [ ] nastavení času se zvukovým výstupem (přiřazení periferie) a světelnou signalizací pomocí LED nad switchy
 - [ ] nastavení zapnutí/ vypnutí alarmu -> LED bude reprezentovat tyto stavy
-- [ ] vytvořit generátor signálu, který bude posílán na bzučák
-- [ ] vytvoření paměti s alarmy
+- [x] vytvořit generátor signálu, který bude posílán na bzučák
+- [x] vytvoření paměti s alarmy
 
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
