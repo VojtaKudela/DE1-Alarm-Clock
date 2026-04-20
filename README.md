@@ -7,6 +7,20 @@
 ### Blokové schéma Alarm Clock
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Alarm_clock.drawio%20(1).png).
 
+### Popis jednotlivých periferií 
+_**Vstupní perifirie**_
+- CLK 100MHz -> vstupné hodinový tak, pro řízení hodin
+- BTNU a BTND -> tlačítka pro nastavení šasu hodin  alarmů
+- BTNL a BTNR -> přechod mezi módy a mezi HH a MM při nastavování času
+- BTNC -> slouží k **nastavoání/potvrzování** (k nastavení dojde, pokud bude stlačeno po dobu minimálně 2 sekund)
+- SW [0:3] -> vypínače slouží k zapnití a vypnutí budíku
+
+_**Výstupní perifirie**_
+- AN [7:0] -> slouží k řízení anod sedmisegmentového displeje
+- SEG [6:0] -> řízení jednotlivých segmentů každého sedmisegmentového displeje
+- BUZZER -> řízení alarmu (přiřadit periferii)
+- LED_OUT [0:15] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
+
 ## Hardwarový popis a demo aplikace
 
 ### Náhled na zařízení
@@ -28,21 +42,6 @@
 ### Nastavení času
 
 ### Video ukázka
-
-### Popis jednotlivých periferií 
-_**Vstupní perifirie**_
-- CLK 100MHz -> vstupné hodinový tak, pro řízení hodin
-- BTNU a BTND -> tlačítka pro nastavení šasu hodin  alarmů
-- BTNL a BTNR -> přechod mezi módy a mezi HH a MM při nastavování času
-- BTNC -> slouží k **nastavoání/potvrzování** (k nastavení dojde, pokud bude stlačeno po dobu minimálně 2 sekund)
-- SW [0:3] -> vypínače slouží k zapnití a vypnutí budíku
-
-_**Výstupní perifirie**_
-- AN [7:0] -> slouží k řízení anod sedmisegmentového displeje
-- SEG [6:0] -> řízení jednotlivých segmentů každého sedmisegmentového displeje
-- BUZZER -> řízení alarmu (přiřadit periferii)
-- LED_OUT [0:15] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
-
 
 ## Co udělat do projektu
 
