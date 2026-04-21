@@ -31,33 +31,46 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity tb_time_counter is
-end tb_time_counter;
+entity tb_up_down_counter is
+end tb_up_down_counter;
 
-architecture tb of tb_time_counter is
+architecture tb of tb_up_down_counter is
 
-    component time_counter
+    --------------------------------------------------------------------
+    -- DUT
+    --------------------------------------------------------------------
+    component up_down_counter
         port (
             clk        : in std_logic;
             rst        : in std_logic;
-            up_press   : in std_logic;
-            down_press : in std_logic;
-            mode_sel   : in std_logic;
-            HH         : out std_logic_vector (4 downto 0);
-            MM         : out std_logic_vector (5 downto 0)
+
+            up_hours   : in std_logic;
+            down_hours : in std_logic;
+
+            up_minutes   : in std_logic;
+            down_minutes : in std_logic;
+
+            HH : out std_logic_vector(4 downto 0);
+            MM : out std_logic_vector(5 downto 0)
         );
     end component;
 
-    signal clk        : std_logic := '0';
-    signal rst        : std_logic := '0';
-    signal up_press   : std_logic := '0';
-    signal down_press : std_logic := '0';
-    signal mode_sel   : std_logic := '0';
+    --------------------------------------------------------------------
+    -- signals
+    --------------------------------------------------------------------
+    signal clk : std_logic := '0';
+    signal rst : std_logic := '0';
 
-    signal HH         : std_logic_vector (4 downto 0);
-    signal MM         : std_logic_vector (5 downto 0);
+    signal up_hours     : std_logic := '0';
+    signal down_hours   : std_logic := '0';
+    signal up_minutes   : std_logic := '0';
+    signal down_minutes : std_logic := '0';
+
+    signal HH : std_logic_vector(4 downto 0);
+    signal MM : std_logic_vector(5 downto 0);
 
     constant TbPeriod : time := 10 ns;
+    signal TbClock : std_logic := '0';
     signal TbSimEnded : std_logic := '0';
 
 begin
@@ -65,107 +78,165 @@ begin
     --------------------------------------------------------------------
     -- DUT
     --------------------------------------------------------------------
-    dut : time_counter
+    dut : up_down_counter
         port map (
-            clk        => clk,
-            rst        => rst,
-            up_press   => up_press,
-            down_press => down_press,
-            mode_sel   => mode_sel,
-            HH         => HH,
-            MM         => MM
+            clk => clk,
+            rst => rst,
+
+            up_hours   => up_hours,
+            down_hours => down_hours,
+
+            up_minutes   => up_minutes,
+            down_minutes => down_minutes,
+
+            HH => HH,
+            MM => MM
         );
 
     --------------------------------------------------------------------
-    -- Clock
+    -- CLOCK
     --------------------------------------------------------------------
-    clk <= not clk after TbPeriod/2 when TbSimEnded /= '1' else '0';
+    TbClock <= not TbClock after TbPeriod/2 when TbSimEnded /= '1' else '0';
+    clk <= TbClock;
 
     --------------------------------------------------------------------
-    -- Stimulus
+    -- STIMULI
     --------------------------------------------------------------------
-    stim_proc : process
+    stimuli : process
     begin
 
         ------------------------------------------------------------
-        -- INIT
+        -- INIT + RESET
         ------------------------------------------------------------
-        up_press <= '0';
-        down_press <= '0';
-        mode_sel <= '0';
+        up_hours <= '0';
+        down_hours <= '0';
+        up_minutes <= '0';
+        down_minutes <= '0';
 
         rst <= '1';
-        wait for 50 ns;
+        wait for 10 ns;
         rst <= '0';
 
         wait for 20 ns;
 
         ------------------------------------------------------------
-        -- TEST 1: HOURS increment (mode_sel = 0)
+        -- 1) KRÁTKÝ STISK HOURS +
         ------------------------------------------------------------
-        report "TEST: HOURS increment";
+        up_hours <= '1';
+        wait for TbPeriod;        -- 1 clock pulse
+        up_hours <= '0';
 
-        mode_sel <= '0';
+        wait for 50 ns;
 
-        -- +1 hour
-        up_press <= '1';
+        ------------------------------------------------------------
+        -- 2) DLOUHÝ STISK HOURS -
+        ------------------------------------------------------------
+        down_hours <= '1';
+        wait for 120 ns;          -- držení
+        down_hours <= '0';
+
+        wait for 50 ns;
+
+        ------------------------------------------------------------
+        -- 3) KRÁTKÝ STISK MINUTES +
+        ------------------------------------------------------------
+        up_minutes <= '1';
         wait for TbPeriod;
-        up_press <= '0';
+        up_minutes <= '0';
 
+        wait for 50 ns;
+
+        ------------------------------------------------------------
+        -- 4) DLOUHÝ STISK MINUTES -
+        ------------------------------------------------------------
+        down_minutes <= '1';
+        wait for 150 ns;
+        down_minutes <= '0';
+
+        wait for 50 ns;
+
+        ------------------------------------------------------------
+        -- 5) RYCHLÉ OPAKOVANÉ KLIKÁNÍ (bounce-like test)
+        ------------------------------------------------------------
+        up_hours <= '1';
+        wait for TbPeriod;
+        up_hours <= '0';
+        wait for TbPeriod;
+
+        up_hours <= '1';
+        wait for TbPeriod;
+        up_hours <= '0';
+
+        wait for 100 ns;
+        
+        ------------------------------------------------------------
+        -- 6) RYCHLÉ OPAKOVANÉ KLIKÁNÍ MINUTES (bounce-like test)
+        ------------------------------------------------------------
+        up_minutes <= '1';
+        wait for TbPeriod;
+        up_minutes <= '0';
+        wait for TbPeriod;
+
+        up_minutes <= '1';
+        wait for TbPeriod;
+        up_minutes <= '0';
+
+        wait for 120 ns;
+        
+        up_minutes <= '1';
+        wait for TbPeriod;
+        up_minutes <= '0';
+        
         wait for 20 ns;
-
-        -- +1 hour
-        up_press <= '1';
+        
+        up_minutes <= '1';
         wait for TbPeriod;
-        up_press <= '0';
-
+        up_minutes <= '0';
+        
         wait for 50 ns;
-
-        ------------------------------------------------------------
-        -- TEST 2: MINUTES increment (mode_sel = 1)
-        ------------------------------------------------------------
-        report "TEST: MINUTES increment";
-
-        mode_sel <= '1';
-
-        -- +1 min
-        up_press <= '1';
+        
+        down_minutes <= '1';
         wait for TbPeriod;
-        up_press <= '0';
+        down_minutes <= '0';
 
-        wait for 20 ns;
-
-        -- +1 min
-        up_press <= '1';
+        wait for 100 ns;
+        
+        ------------------------------------------------------------
+        -- 5) RYCHLÉ OPAKOVANÉ KLIKÁNÍ S PŘETEČENÍM HODIN
+        ------------------------------------------------------------
+        down_hours <= '1';
         wait for TbPeriod;
-        up_press <= '0';
-
-        wait for 50 ns;
-
-        ------------------------------------------------------------
-        -- TEST 3: decrement minutes
-        ------------------------------------------------------------
-        report "TEST: MINUTES decrement";
-
-        down_press <= '1';
+        down_hours <= '0';
         wait for TbPeriod;
-        down_press <= '0';
+        
+        down_hours <= '1';
+        wait for TbPeriod;
+        down_hours <= '0';
+        wait for TbPeriod;
+        
+        down_hours <= '1';
+        wait for TbPeriod;
+        down_hours <= '0';
+        wait for TbPeriod;
+        
+        down_hours <= '1';
+        wait for TbPeriod;
+        down_hours <= '0';
 
-        wait for 50 ns;
-
+        wait for 100 ns;
+        
         ------------------------------------------------------------
-        -- FINISH
+        -- END
         ------------------------------------------------------------
-        report "Simulation finished";
+        wait for 200 ns;
 
         TbSimEnded <= '1';
         wait;
-
     end process;
 
 end tb;
 
-configuration cfg_tb_time_counter of tb_time_counter is
+configuration cfg_tb_up_down_counter of tb_up_down_counter is
     for tb
     end for;
-end cfg_tb_time_counter;
+end cfg_tb_up_down_counter;
