@@ -7,6 +7,23 @@
 ### Blokové schéma Alarm Clock
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Alarm_clock.drawio%20(1).png).
 
+### Inputs and Outputs
+
+| Signal Name | Direction | Width | Description |
+| :--- | :---: | :---: | :--- |
+| **clk** | Input | 1 | Systémový hodinový signál 100 MHz |
+| **btnu** | Input | 1 | Tlačítko nahoru (nastavení/zvyšování času hodin a alarmů) |
+| **btnd** | Input | 1 | Tlačítko dolů (nastavení/snižování času hodin a alarmů) |
+| **btnl** | Input | 1 | Tlačítko doleva (přechod mezi módy - hodiny/alarm) |
+| **btnr** | Input | 1 | Tlačítko doprava (přechod mezi nastavováním HH a MM) |
+| **btnc** | Input | 1 | Tlačítko střední (nastavování / potvrzování - podržení min. 2s) |
+| **sw[2:0]** | Input | 3 | Vypínače sloužící k zapnutí a vypnutí jednotlivých budíků |
+| **an[7:0]** | Output | 8 | Řízení aktivní anody 8místného sedmisegmentového displeje |
+| **seg[6:0]** | Output | 7 | Řízení jednotlivých segmentů (katod A-G) displeje |
+| **dp** | Output | 1 | Desetinná tečka displeje (indikace sekund) |
+| **led[16:0]** | Output | 17 | Indikace stavu budíku on/off (LED 0:2) a signalizace zvonění |
+| **buzz_out** | Output | 1 | Výstup pro zvukový generátor signálu (bzučák) |
+
 ### Popis jednotlivých periferií 
 _**Vstupní perifirie**_
 - CLK 100MHz -> vstupné hodinový tak, pro řízení hodin
