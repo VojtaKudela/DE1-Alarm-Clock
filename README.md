@@ -103,32 +103,32 @@ V této sekci jsou zobrazeny průběhy simulací jednotlivých modulů, které o
 
 ### 1. Paměť budíku (`alarm_memory`)
 Simulace ověřuje ukládání času budíku a jeho inkrementaci pomocí pulsů `en_inc_hour` a `en_inc_min`.
-<img src="Simulations/alarm_memory_sim.png" alt="Simulace paměti budíku" width="600">
+<div><img src="Simulations/alarm_memory_sim.png" width="600" alt="Simulace paměti budíku"></div>
 
 ### 2. Dekodér na 7-segmentový displej (`bin2seg`)
 Ověření převodu 5bitové binární hodnoty na kód pro 7segmentový displej (společná anoda), včetně speciálních znaků jako 'A', 'L' nebo '_'.
-<img src="Simulations/bin2seg_sim.png" alt="Simulace dekodéru" width="600">
+<div><img src="Simulations/bin2seg_sim.png" width="600" alt="Simulace dekodéru"></div>
 
 ### 3. Generátor pulzů (`clock_enable`)
-[cite_start]Verifikace generování synchronizačních pulsů `ce` trvajících jeden hodinový takt v definovaných intervalech[cite: 141, 142, 145].
-<img src="Simulations/clock_enable_sim.png" alt="Simulace clock enable" width="600">
+Verifikace generování synchronizačních pulsů `ce` trvajících jeden hodinový takt v definovaných intervalech.
+<div><img src="Simulations/clock_enable_sim.png" width="600" alt="Simulace clock enable"></div>
 
 ### 4. Ošetření zákmitů tlačítek (`debounce`)
 Simulace demonstruje filtrování vstupního signálu z tlačítka a generování čistého pulsu `btn_press` na vzestupnou hranu stabilního stavu.
-<img src="Simulations/debounce_sim.png" alt="Simulace debouncingu" width="600">
+<div><img src="Simulations/debounce_sim.png" width="600" alt="Simulace debouncingu"></div>
 
 ### 5. Ovladač 8místného displeje (`driver_7seg_8digits`)
 Strukturální simulace multiplexního řízení 8 pozic displeje pomocí anodových signálů `dig_o` a segmentů `seg_o`.
-<img src="Simulations/driver_7_seg_8digits.png" alt="Simulace driveru displeje" width="600">
+<div><img src="Simulations/driver_7_seg_8digits.png" width="600" alt="Simulace driveru displeje"></div>
 
 ### 6. Nastavení času (`time_setter`)
 Ověření logiky pro manuální úpravu hodin a minut pomocí signálů `up_press`/`down_press` v závislosti na zvoleném módu `mode_sel`.
-<img src="Simulations/time_setter_sim.png" alt="Simulace nastavení času" width="600">
+<div><img src="Simulations/time_setter_sim.png" width="600" alt="Simulace nastavení času"></div>
 
 ### 7. Hlavní čítač hodin a minut (`up_down_counter`)
 Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přetečení (23 -> 00, 59 -> 00) a ošetřením vstupních hran.
-<img src="Simulations/up_down_counter_sim(1).png" alt="Simulace čítače 1" width="600">
-<img src="Simulations/up_down_counter_sim.png" alt="Simulace čítače 2" width="600">
+<div><img src="Simulations/up_down_counter_sim(1).png" width="600" alt="Simulace čítače 1"></div>
+<div><img src="Simulations/up_down_counter_sim.png" width="600" alt="Simulace čítače 2"></div>
 
 
 ## Co udělat do projektu
