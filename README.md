@@ -80,7 +80,7 @@ Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrá
 <div align="center">
   <img src="Images/driver_7seg_8digits.png" alt="Blokové schéma řízení displeje" width="750">
   <p>
-    <em>Obr. 1: Interní blokové schéma modulu driver_7seg_8digits pro multiplexní řízení 8místného displeje.</em>
+    <em>Obr. 2: Interní blokové schéma modulu driver_7seg_8digits pro multiplexní řízení 8místného displeje.</em>
   </p>
 </div>
 
