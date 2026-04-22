@@ -17,11 +17,13 @@
 | **btnl** | Input | 1 | Tlačítko doleva (přechod mezi módy - hodiny/alarm) |
 | **btnr** | Input | 1 | Tlačítko doprava (přechod mezi nastavováním HH a MM) |
 | **btnc** | Input | 1 | Tlačítko střední (nastavování / potvrzování - podržení min. 2s) |
-| **sw[2:0]** | Input | 3 | Vypínače sloužící k zapnutí a vypnutí jednotlivých budíků |
+| **sw0** | Input | 1 | Vypínač pro zapnutí/vypnutí budíku 1 |
+| **sw1** | Input | 1 | Vypínač pro zapnutí/vypnutí budíku 2 |
+| **sw2** | Input | 1 | Vypínač pro zapnutí/vypnutí budíku 3 |
 | **an[7:0]** | Output | 8 | Řízení aktivní anody 8místného sedmisegmentového displeje |
 | **seg[6:0]** | Output | 7 | Řízení jednotlivých segmentů (katod A-G) displeje |
-| **dp** | Output | 1 | Desetinná tečka displeje (indikace sekund) |
-| **led[16:0]** | Output | 17 | Indikace stavu budíku on/off (LED 0:2) a signalizace zvonění |
+| **dp** | Output | 1 | Desetinná tečka displeje (indikace plynoucích sekund) |
+| **led[16:0]** | Output | 17 | Indikace stavu budíků on/off a světelná signalizace zvonění |
 | **buzz_out** | Output | 1 | Výstup pro zvukový generátor signálu (bzučák) |
 
 ### Popis jednotlivých periferií 
