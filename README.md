@@ -89,32 +89,32 @@ V této sekci jsou zobrazeny průběhy simulací jednotlivých modulů, které o
 
 ### 1. Paměť budíku (`alarm_memory`)
 [cite_start]Simulace ověřuje ukládání času budíku a jeho inkrementaci pomocí pulsů `en_inc_hour` a `en_inc_min`[cite: 1, 2].
-![Simulace paměti budíku](simulations/alarm_memory_sim.png)
+![Simulace paměti budíku](Simulations/alarm_memory_sim.png)
 
 ### 2. Dekodér na 7-segmentový displej (`bin2seg`)
 [cite_start]Ověření převodu 5bitové binární hodnoty na kód pro 7segmentový displej (společná anoda), včetně speciálních znaků jako 'A', 'L' nebo '_'[cite: 168, 169].
-![Simulace dekodéru](simulations/bin2seg_sim.png)
+![Simulace dekodéru](Simulations/bin2seg_sim.png)
 
 ### 3. Generátor pulzů (`clock_enable`)
 [cite_start]Verifikace generování synchronizačních pulsů `ce` trvajících jeden hodinový takt v definovaných intervalech[cite: 141, 142, 145].
-![Simulace clock enable](simulations/clock_enable_sim.png)
+![Simulace clock enable](Simulations/clock_enable_sim.png)
 
 ### 4. Ošetření zákmitů tlačítek (`debounce`)
 [cite_start]Simulace demonstruje filtrování vstupního signálu z tlačítka a generování čistého pulsu `btn_press` na vzestupnou hranu stabilního stavu[cite: 109, 111, 130].
-![Simulace debouncingu](simulations/debounce_sim.png)
+![Simulace debouncingu](Simulations/debounce_sim.png)
 
 ### 5. Ovladač 8místného displeje (`driver_7seg_8digits`)
 [cite_start]Strukturální simulace multiplexního řízení 8 pozic displeje pomocí anidových signálů `dig_o` a segmentů `seg_o`[cite: 75, 78, 79].
-![Simulace driveru displeje](simulations/driver_7_seg_8digits.png)
+![Simulace driveru displeje](Simulations/driver_7_seg_8digits.png)
 
 ### 6. Nastavení času (`time_setter`)
 [cite_start]Ověření logiky pro manuální úpravu hodin a minut pomocí signálů `up_press`/`down_press` v závislosti na zvoleném módu `mode_sel`[cite: 36, 39, 40].
-![Simulace nastavení času](simulations/time_setter_sim.png)
+![Simulace nastavení času](Simulations/time_setter_sim.png)
 
 ### 7. Hlavní čítač hodin a minut (`up_down_counter`)
 [cite_start]Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přetečení (23 -> 00, 59 -> 00) a ošetřením vstupních hran[cite: 12, 15, 16, 23, 28].
-![Simulace čítače 1](simulations/up_down_counter_sim(1).png)
-![Simulace čítače 2](simulations/up_down_counter_sim.png)
+![Simulace čítače 1](Simulations/up_down_counter_sim(1).png)
+![Simulace čítače 2](Simulations/up_down_counter_sim.png)
 
 
 ## Co udělat do projektu
