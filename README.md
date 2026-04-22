@@ -75,8 +75,8 @@ Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrá
 
 ### Displej
 - [x] vytvořit převodní tabulku pro symboly
-- [ ] vytvořit řízení 7 segmentu (zobrazení symbolů) a jednotlivých anod segmentů (přepínání 2ms)
-- [ ] tečka mezi HH a MM bude předtavovat sekundy (bude blikat)
+- [x] vytvořit řízení 7 segmentu (zobrazení symbolů) a jednotlivých anod segmentů (přepínání 2ms)
+- [x] tečka mezi HH a MM bude představovat sekundy (bude blikat)
 - [ ] blikání, pokud bude docházet k nastavování času hodin nebo alarmu (MM bliká, pokud nastavuji HH a naopak) -> možná vynecháme
 
 ### Tlačítka
