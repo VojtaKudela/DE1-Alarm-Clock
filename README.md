@@ -144,7 +144,6 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 - [x] vytvořit převodní tabulku pro symboly
 - [x] vytvořit řízení 7 segmentu (zobrazení symbolů) a jednotlivých anod segmentů (přepínání 2ms)
 - [x] tečka mezi HH a MM bude představovat sekundy (bude blikat)
-- [ ] blikání, pokud bude docházet k nastavování času hodin nebo alarmu (MM bliká, pokud nastavuji HH a naopak) -> možná vynecháme
 
 ### Tlačítka
 - [ ] vytvoření stavového automatu pro jejich ovládání
