@@ -62,6 +62,12 @@ O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se s
 3. **`bin2seg` (Převodník / Dekodér znaků):**
    Kombinační obvod, který funguje jako překladový slovník. Přijímá 5bitový datový signál a okamžitě ho převádí na 7bitový vektor pro jednotlivé segmenty (A-G) displeje. Obsahuje logiku pro číslice 0-9 a speciální znaky (A, L, _, C, S, atd.) potřebné pro navigaci v menu budíku.
 
+   <p align="center">
+  <img src="Images/bin2seg_tabulka.png" width="400" alt="Pravdivostní tabulka bin2seg">
+  <br>
+  <em>Tab. 1: Pravdivostní tabulka dekodéru pro číslice a speciální znaky (společná anoda).</em>
+</p>
+
 #### Architektura a princip multiplexování
 Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrální **multiplexor**. Ten sleduje aktuální hodnotu z čítače a na jejím základě provede tři akce současně:
 * Vybere správná 5bitová data ze vstupů (od nadřazeného hodinového modulu) a pošle je do dekodéru `bin2seg`.
