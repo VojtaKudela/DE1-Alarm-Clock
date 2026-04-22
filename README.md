@@ -50,7 +50,7 @@ Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrá
 * Vyhodnotí, zda má na dané pozici svítit desetinná tečka (`dp_o`), která v projektu slouží k indikaci plynoucích sekund (blikání 1 Hz) mezi hodinami a minutami.
 
 #### Blokové schéma řízení displeje
-![Schéma driveru displeje](Images/driver_7seg_8digits.png)
+<img src="Images/driver_7seg_8digits.png" alt="Schéma driveru" width="500">
 
 ### Nastavovíní hodin a budíku
 
