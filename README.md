@@ -32,13 +32,13 @@ _**Vstupní perifirie**_
 - BTNU a BTND -> tlačítka pro nastavení šasu hodin  alarmů
 - BTNL a BTNR -> přechod mezi módy a mezi HH a MM při nastavování času
 - BTNC -> slouží k **nastavoání/potvrzování** (k nastavení dojde, pokud bude stlačeno po dobu minimálně 2 sekund)
-- SW [0:3] -> vypínače slouží k zapnití a vypnutí budíku
+- SW [0:2] -> vypínače slouží k zapnití a vypnutí budíku
 
 _**Výstupní perifirie**_
 - AN [7:0] -> slouží k řízení anod sedmisegmentového displeje
 - SEG [6:0] -> řízení jednotlivých segmentů každého sedmisegmentového displeje
 - BUZZER -> řízení alarmu (přiřadit periferii)
-- LED_OUT [0:15] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
+- LED_OUT [16:0] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
 
 ## Hardwarový popis a demo aplikace
 
