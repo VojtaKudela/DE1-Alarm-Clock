@@ -30,6 +30,27 @@ _**Výstupní perifirie**_
 ## Sofwarový popis
 
 ### Display
+O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `driver_7seg_8digits`. Aby bylo dosaženo rozsvícení všech 8 cifer "najednou", využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy, což lidské oko díky setrvačnosti vnímá jako souvislý obraz.
+
+Řízení displeje je rozděleno do tří hlavních strukturálních bloků:
+
+1. **`clk_en` (Generátor povolovacího pulzu):**
+   Bere systémový hodinový signál (100 MHz) a funguje jako dělička frekvence. Každé 2 milisekundy (500 Hz) vygeneruje jeden krátký povolovací pulz (`en`), který dává pokyn k přepnutí na další cifru.
+
+2. **`cnt_up_down` (Čítač / Ukazatel adresy):**
+   Tříbitový synchronní čítač, který přijímá pulzy z `clk_en`. Neustále odpočítává v rozsahu od 7 do 0. Jeho aktuální hodnota slouží jako adresa, která říká nadřazenému multiplexoru, která z 8 cifer má být v danou chvíli fyzicky aktivní (rozsvícená).
+
+3. **`bin2seg` (Převodník / Dekodér znaků):**
+   Kombinační obvod, který funguje jako překladový slovník. Přijímá 5bitový datový signál a okamžitě ho převádí na 7bitový vektor pro jednotlivé segmenty (A-G) displeje. Obsahuje logiku pro číslice 0-9 a speciální znaky (A, L, _, C, S, atd.) potřebné pro navigaci v menu budíku.
+
+#### Architektura a princip multiplexování
+Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrální **multiplexor**. Ten sleduje aktuální hodnotu z čítače a na jejím základě provede tři akce současně:
+* Vybere správná 5bitová data ze vstupů (od nadřazeného hodinového modulu) a pošle je do dekodéru `bin2seg`.
+* Nastaví logickou "0" na příslušný pin sběrnice `AN` (Anody), čímž zapne napájení pouze pro konkrétní cifru na desce (běžící nula).
+* Vyhodnotí, zda má na dané pozici svítit desetinná tečka (`dp_o`), která v projektu slouží k indikaci plynoucích sekund (blikání 1 Hz) mezi hodinami a minutami.
+
+#### Blokové schéma řízení displeje
+*Poznámka: Níže uvedené schéma ukazuje tok dat a řídících signálů uvnitř driveru displeje.*
 
 ### Nastavovíní hodin a budíku
 
