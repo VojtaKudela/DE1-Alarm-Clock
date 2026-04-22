@@ -69,6 +69,7 @@ O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se s
   </p>
 </div>
 
+
 #### Architektura a princip multiplexování
 Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrální **multiplexor**. Ten sleduje aktuální hodnotu z čítače a na jejím základě provede tři akce současně:
 * Vybere správná 5bitová data ze vstupů (od nadřazeného hodinového modulu) a pošle je do dekodéru `bin2seg`.
@@ -77,6 +78,7 @@ Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrá
 
 #### Blokové schéma řízení displeje
 <img src="Images/driver_7seg_8digits.png" alt="Schéma driveru" width="750">
+
 
 ### Nastavovíní hodin a budíku
 
