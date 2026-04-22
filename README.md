@@ -134,7 +134,7 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 ## Co udělat do projektu
 
 - [x] Nahrát blokové schéma projektu
-- [ ] nahrát soubor XDC -> co budeme používat
+- [x] nahrát soubor XDC -> co budeme používat
 
 ### Hodiny
 - [ ] vytvoření 1Hz generátoru
