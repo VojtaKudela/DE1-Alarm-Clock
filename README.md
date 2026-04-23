@@ -136,30 +136,6 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 <div><img src="Simulations/up_down_counter_sim.png" width="600" alt="Simulace čítače 2"></div>
 
 
-## Co udělat do projektu
-
-- [x] Nahrát blokové schéma projektu
-- [x] nahrát soubor XDC -> co budeme používat
-
-### Hodiny
-- [ ] vytvoření 1Hz generátoru
-- [ ] vytvoření generátor hodinového signálu a čítače, pomocí kterého se následně bude zobrazovat čas 
-
-### Displej
-- [x] vytvořit převodní tabulku pro symboly
-- [x] vytvořit řízení 7 segmentu (zobrazení symbolů) a jednotlivých anod segmentů (přepínání 2ms)
-- [x] tečka mezi HH a MM bude představovat sekundy (bude blikat)
-
-### Tlačítka
-- [ ] vytvoření stavového automatu pro jejich ovládání
-- [ ] nastavení času (BTNU a BTND), přecházení mezi módy (hodiny a alarm) (BNTL a BNTR) + přechod při nastavování času (HH:MM) a pomocí prostředního (BTNC) bude docházet k nastavení (SET)/ potvrzování
-
-### Alarm
-- [ ] nastavení času se zvukovým výstupem (přiřazení periferie) a světelnou signalizací pomocí LED nad switchy
-- [ ] nastavení zapnutí/ vypnutí alarmu -> LED bude reprezentovat tyto stavy
-- [x] vytvořit generátor signálu, který bude posílán na bzučák
-- [x] vytvoření paměti s alarmy
-
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
 2. [DATASHEET for Pasive Buzzer HW-508 V0.2](https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf).
