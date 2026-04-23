@@ -7,7 +7,9 @@
 ### Blokové schéma Alarm Clock
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Alarm_clock.drawio%20(1).png)
 
-### Inputs and Outputs
+
+
+## Inputs and Outputs
 
 | Signal Name | Direction | Width | Description |
 | :--- | :---: | :---: | :--- |
@@ -41,12 +43,15 @@ _**Výstupní perifirie**_
 - LED_OUT [16:0] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
 
 ## Hardwarový popis a demo aplikace
+Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsahuje mimo jiné **osmimístný sedmisegmentový display**, **16 LED diod** a **5 tlačítek**, což jsou periferie, které byly užity. Další zařízení bylo připojeno na vnější porty **DOPLNIT**. Na ten byl připojen _**buzzer**_, který slouží k zvukové signalizaci, při spuštění alarmu.
 
 ### Náhled na zařízení
 
 ### Top level
 
 ## Sofwarový popis
+Celé zařízení je možno si rozdělit na několika částí. Každý z nich obsahuje odlišnou část zařízení. 
+
 
 ### Display
 O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `driver_7seg_8digits`. Aby bylo dosaženo rozsvícení všech 8 cifer "najednou", využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy, což lidské oko díky setrvačnosti vnímá jako souvislý obraz.
