@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 15.04.2026 21:30:39
+-- Create Date: 23.04.2026 15:35:05
 -- Design Name: 
 -- Module Name: time_control - Behavioral
 -- Project Name: 
@@ -33,99 +33,39 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity time_control is
-    Port (
-        but_00 : in  std_logic;  -- UP
-        but_01 : in  std_logic;  -- DOWN
-        rst    : in  std_logic;
-        clk    : in  std_logic;
-
-        mode       : out std_logic_vector(2 downto 0);
-        change     : out std_logic;
-        set_enable : out std_logic
+    port (
+        clk      : in  std_logic;
+        rst      : in  std_logic;
+        but_up   : in  std_logic;
+        but_down : in  std_logic;
+        set_hh   : in  std_logic;
+        set_mm   : in  std_logic;
+        
+        HH       : out std_logic_vector(4 downto 0);
+        MM       : out std_logic_vector(5 downto 0)
     );
 end entity;
 
 architecture Behavioral of time_control is
-
-    ------------------------------------------------------------
-    -- debounce
-    ------------------------------------------------------------
-    component debounce
-        generic (
-            C_SHIFT_LEN : positive := 4;
-            C_MAX       : positive := 200_000
-        );
-        port (
-            clk       : in  std_logic;
-            rst       : in  std_logic;
-            btn_in    : in  std_logic;
-            btn_state : out std_logic;
-            btn_press : out std_logic
-        );
-    end component;
-
-    ------------------------------------------------------------
-    -- internal signals
-    ------------------------------------------------------------
-    signal sig_up_press   : std_logic;
-    signal sig_down_press : std_logic;
-    signal mode_int       : std_logic_vector(2 downto 0) := "000";
-
+    signal up_pulse, down_pulse : std_logic;
 begin
+    -- OÅ¡etÅ™enÃ­ tlaÄÃ­tek pro inkrementaci/dekrementaci
+    DEB_UP : entity work.debounce
+        port map (clk => clk, rst => rst, btn_in => but_up, btn_press => up_pulse);
 
-    ------------------------------------------------------------
-    -- UP debounce
-    ------------------------------------------------------------
-    DEB_UP : debounce
+    DEB_DOWN : entity work.debounce
+        port map (clk => clk, rst => rst, btn_in => but_down, btn_press => down_pulse);
+
+    -- HlavnÃ­ ÄÃ­taÄ Äasu (pÅ™i nastavovÃ¡nÃ­)
+    -- sel = '0' pro hodiny, '1' pro minuty
+    COUNTER_EDIT : entity work.up_down_counter
         port map (
-            clk       => clk,
-            rst       => rst,
-            btn_in    => but_00,
-            btn_state => open,
-            btn_press => sig_up_press
+            clk    => clk,
+            rst    => rst,
+            up     => up_pulse,
+            down   => down_pulse,
+            sel    => set_mm, 
+            HH     => HH,
+            MM     => MM
         );
-
-    ------------------------------------------------------------
-    -- DOWN debounce
-    ------------------------------------------------------------
-    DEB_DOWN : debounce
-        port map (
-            clk       => clk,
-            rst       => rst,
-            btn_in    => but_01,
-            btn_state => open,
-            btn_press => sig_down_press
-        );
-
-    ------------------------------------------------------------
-    -- SIMPLE MODE LOGIC (temporary)
-    ------------------------------------------------------------
-    process(clk)
-    begin
-        if rising_edge(clk) then
-            if rst = '1' then
-                mode_int <= "000";
-            else
-
-                -- jednoduché pøepínání režimu
-                if sig_up_press = '1' then
-                    mode_int <= std_logic_vector(unsigned(mode_int) + 1);
-                elsif sig_down_press = '1' then
-                    mode_int <= std_logic_vector(unsigned(mode_int) - 1);
-                end if;
-
-            end if;
-        end if;
-    end process;
-
-    ------------------------------------------------------------
-    -- OUTPUTS
-    ------------------------------------------------------------
-    mode <= mode_int;
-
-    change <= sig_up_press or sig_down_press;
-
-    -- pøíklad: povol nastavení jen v režimu 3
-    set_enable <= '1' when mode_int = "011" else '0';
-
-end architecture;
+end Behavioral;
