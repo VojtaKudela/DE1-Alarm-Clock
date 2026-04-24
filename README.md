@@ -61,7 +61,8 @@ Displej je logicky rozdělen na tyto sekce:
 * **Levá část (AN4–AN7):** Funguje jako stavový indikátor menu. Při sledování běžného času je tato část zcela zhasnuta. Jakmile uživatel přepne na budíky, zobrazí se zde text `AL_1`, `AL_2` nebo `AL_3`.
 * **Desetinná tečka (dvojtečka) (DP):** Při běžném chodu bliká s frekvencí 1 Hz (500 ms svítí, 500 ms nesvítí) a vizuálně tak oživuje chod hodin. Jakmile uživatel vstoupí do režimu nastavování času, tečka začne trvale svítit.
 <br>
-![Vizuální rozložení displeje](Images/displej.svg)
+<img src="Images/displej.svg" width="100%" alt="Vizuální rozložení displeje">
+<br>
 Řízení displeje je rozděleno do tří hlavních strukturálních bloků:
 
 1. **`clk_en` (Generátor povolovacího pulzu):**
