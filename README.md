@@ -56,9 +56,9 @@ Celé zařízení je možno si rozdělit na několika částí. Každý z nich o
 ### Nastavovíní hodin a budíku
 
 **1. Stavový automat hodin (`main_loop`)**
-Jedná se o hlavní jádro, které řídí selé hodiny.
 
-## Tabulka přechodů a výstupů
+
+**Tabulka přechodů a výstupů**
 
 | Aktuální stav | mode_up_rise | mode_down_rise | Další stav |
 |--------------|--------------|----------------|------------|
