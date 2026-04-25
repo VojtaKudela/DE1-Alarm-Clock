@@ -110,6 +110,12 @@ Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrá
 
 ### Nastavovíní hodin a budíku
 
+**1. Stavový automat hodin (`main_loop`)**
+Jedná se o hlavní jádro, které řídí selé hodiny. 
+
+
+
+
 ### Alarm
 Systém budíku je plně hardwarový a nevyužívá žádný mikrokontrolér. Jeho řízení je rozděleno do tří nezávislých podmodulů, které se starají o uchování času, porovnání s reálnými hodinami a generování akustického signálu.
 
