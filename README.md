@@ -86,7 +86,7 @@ Displej je logicky rozdělen na tyto sekce:
    Kombinační obvod, který funguje jako překladový slovník. Přijímá 5bitový datový signál a okamžitě ho převádí na 7bitový vektor pro jednotlivé segmenty (A-G) displeje. Obsahuje logiku pro číslice 0-9 a speciální znaky (A, L, _, C, S, atd.) potřebné pro navigaci v menu budíku.
 
 <div align="center">
-  <img src="Images/bin2seg_tabulka_git.svg" width="380" alt="Pravdivostní tabulka bin2seg">
+  <img src="Images/bin2seg_tabulka_git.svg" width="450" alt="Pravdivostní tabulka bin2seg">
   <p>
     <em><strong>Tab. 1:</strong> Pravdivostní tabulka dekodéru pro číslice 0–9 a speciální znaky (A, L, _, H, o, d). Signály jsou aktivní v logické 0 (Common Anode).</em>
   </p>
