@@ -111,7 +111,22 @@ Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrá
 ### Nastavovíní hodin a budíku
 
 ### Alarm
+Systém budíku je plně hardwarový a nevyužívá žádný mikrokontrolér. Jeho řízení je rozděleno do tří nezávislých podmodulů, které se starají o uchování času, porovnání s reálnými hodinami a generování akustického signálu.
 
+**1. Paměť budíku (`alarm_memory.vhd`)**
+Tento modul slouží jako nezávislé úložiště pro čas, na který je budík nastaven. 
+* Čas se ukládá do vnitřních registrů a výchozí hodnota po resetu je `06:00`.
+* Modul přijímá ošetřené signály z tlačítek (pulzy o délce jednoho taktu), pomocí kterých uživatel inkrementuje hodiny a minuty. Modul automaticky řeší přetečení (po 23. hodině následuje 0, po 59. minutě 0).
+
+**2. Řídicí logika a FSM (`alarm_control.vhd`)**
+Jde o hlavní mozek celého alarmu. Obsahuje komparátor a stavový automat (FSM), který neustále porovnává reálný čas z hlavních hodin s časem uloženým v paměti budíku.
+* **Aktivace:** Budík zvoní pouze pokud jsou splněny dvě podmínky: přepínač na desce je v poloze ON a aktuální čas se přesně shoduje s nastaveným časem budíku (ve vteřině 00).
+* **Zastavení (Típnutí):** Jakmile budík začne zvonit, FSM se uzamkne ve stavu zvonění. K jeho zastavení musí uživatel stisknout levé tlačítko (`btnl`). FSM si toto stisknutí zapamatuje a alarm umlčí až do dalšího dne.
+
+**3. Generátor signálu pro bzučák (`buzzer_driver.vhd`)**
+Piezo bzučák připojený na Pmod konektor potřebuje pro generování zvuku PWM signál, protože se nejedná o aktivní bzučák s vlastní oscilační frekvencí.
+* Modul generuje základní **tón o frekvenci cca 2 kHz** (lidskému uchu nepříjemný zvuk).
+* Aby budík nepískal jednolitě, je tento tón hardwarově modulován pomalejším signálem o frekvenci **2 Hz**. Výsledkem je přerušovaný, rytmický efekt "pípání-pípání-pípání", typický pro klasické digitální budíky.
 ## Instrukční návod
 
 ### Popis částí
