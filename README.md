@@ -56,7 +56,10 @@ Celé zařízení je možno si rozdělit na několika částí. Každý z nich o
 ### Nastavovíní hodin a budíku
 
 **1. Stavový automat hodin (`main_loop`)**
+Je tvořen dvěmi nezávislými stavovými automaty, které běží paralelně:
 
+1. _**Automat zobrazení**_ (`view_state`)**
+Tento automat 
 
 **Tabulka přechodů a výstupů**
 
@@ -72,6 +75,10 @@ Celé zařízení je možno si rozdělit na několika částí. Každý z nich o
 | AL3_VIEW     | 0            | 1              | AL2_VIEW   |
 
 **Poznámka:** Po resetu (`rst = '1'`) přejde automat vždy do výchozího stavu `TIME_VIEW`.
+
+2. _**Automat nastavování**_ (`set_state`)**
+   V tomto bloku se řeší, zda se něco upravuje (hodiny nebo minuty)
+
 
 ### Display
 O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `driver_7seg_8digits`. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz. 
