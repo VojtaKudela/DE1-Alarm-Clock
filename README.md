@@ -56,10 +56,12 @@ Celé zařízení je možno si rozdělit na několika částí. Každý z nich o
 ### Nastavovíní hodin a budíku
 
 **1. Stavový automat hodin (`main_loop`)**
+
 Je tvořen dvěmi nezávislými stavovými automaty, které běží paralelně:
 
 1. _**Automat zobrazení**_ (`view_state`)**
-Tento automat 
+   
+Tento automat mění stavy pouze tehdy, když se nic nenastavuje, tedy když `set_state = S_OFF`. K přepínání se používají zechycené hrany tlačítek `mode_up_rise` a `mode_down_rise`.
 
 **Tabulka přechodů a výstupů**
 
@@ -77,7 +79,8 @@ Tento automat
 **Poznámka:** Po resetu (`rst = '1'`) přejde automat vždy do výchozího stavu `TIME_VIEW`.
 
 2. _**Automat nastavování**_ (`set_state`)**
-   V tomto bloku se řeší, zda se něco upravuje (hodiny nebo minuty)
+
+Tento automat čeká na dlouhá podržení prostředního tlačítka a následně umožňuje přepínat mezi nystavováním hodin a minut. Jde o kombinaci Mooreona a Mealyho stavového automatu, protože signály `set_hh` a `set_mm` reagují na okamžitý stisk tlačítek, i když už ve stavu jsme.
 
 
 ### Display
