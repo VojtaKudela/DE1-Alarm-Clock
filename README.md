@@ -53,6 +53,25 @@ Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsa
 Celé zařízení je možno si rozdělit na několika částí. Každý z nich obsahuje odlišnou část zařízení. 
 
 
+### Nastavovíní hodin a budíku
+
+**1. Stavový automat hodin (`main_loop`)**
+Jedná se o hlavní jádro, které řídí selé hodiny.
+
+## Tabulka přechodů a výstupů
+
+| Aktuální stav | mode_up_rise | mode_down_rise | Další stav |
+|--------------|--------------|----------------|------------|
+| TIME_VIEW    | 1            | 0              | AL1_VIEW   |
+| TIME_VIEW    | 0            | 1              | AL3_VIEW   |
+| AL1_VIEW     | 1            | 0              | AL2_VIEW   |
+| AL1_VIEW     | 0            | 1              | TIME_VIEW  |
+| AL2_VIEW     | 1            | 0              | AL3_VIEW   |
+| AL2_VIEW     | 0            | 1              | AL1_VIEW   |
+| AL3_VIEW     | 1            | 0              | TIME_VIEW  |
+| AL3_VIEW     | 0            | 1              | AL2_VIEW   |
+
+
 ### Display
 O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `driver_7seg_8digits`. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz. 
 
@@ -106,13 +125,6 @@ Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrá
     <em>Obr. 2: Interní blokové schéma modulu driver_7seg_8digits pro multiplexní řízení 8místného displeje.</em>
   </p>
 </div>
-
-
-### Nastavovíní hodin a budíku
-
-**1. Stavový automat hodin (`main_loop`)**
-Jedná se o hlavní jádro, které řídí selé hodiny. 
-
 
 
 
