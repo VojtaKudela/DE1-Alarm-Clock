@@ -71,6 +71,7 @@ Celé zařízení je možno si rozdělit na několika částí. Každý z nich o
 | AL3_VIEW     | 1            | 0              | TIME_VIEW  |
 | AL3_VIEW     | 0            | 1              | AL2_VIEW   |
 
+**Poznámka:** Po resetu (`rst = '1'`) přejde automat vždy do výchozího stavu `TIME_VIEW`.
 
 ### Display
 O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `driver_7seg_8digits`. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz. 
