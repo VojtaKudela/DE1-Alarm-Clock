@@ -26,7 +26,7 @@
 | **seg[6:0]** | Output | 7 | Řízení jednotlivých segmentů (katod A-G) displeje |
 | **dp** | Output | 1 | Desetinná tečka displeje (indikace plynoucích sekund) |
 | **led[16:0]** | Output | 17 | Indikace stavu budíků on/off a světelná signalizace zvonění |
-| **buzz_out** | Output | 1 | Výstup pro zvukový generátor signálu (bzučák) |
+| **buzzer** | Output | 1 | Výstup pro zvukový generátor signálu (bzučák) |
 
 ### Popis jednotlivých periferií 
 _**Vstupní perifirie**_
