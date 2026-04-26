@@ -42,6 +42,11 @@ _**Výstupní perifirie**_
 - BUZZER -> řízení alarmu (přiřadit periferii)
 - LED_OUT [16:0] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
 
+
+## Teoretický popis
+
+
+
 ## Hardwarový popis a demo aplikace
 Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsahuje mimo jiné **osmimístný sedmisegmentový display**, **16 LED diod** a **5 tlačítek**, což jsou periferie, které byly užity. Další zařízení bylo připojeno na vnější porty **DOPLNIT**. Na ten byl připojen _**buzzer**_, který slouží k zvukové signalizaci, při spuštění alarmu.
 
