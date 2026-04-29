@@ -1,14 +1,18 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: 
+-- Engineer: Jan Jaroslav Koláček
+-- Copyright (c) 2026 Jan Jaroslav Koláček, MIT license
 -- 
 -- Create Date: 23.04.2026 15:13:35
--- Design Name: 
+-- Design Name: alarm_control
 -- Module Name: alarm_control - Behavioral
--- Project Name: Jan Jaroslav Kol��ek
+-- Project Name: Alarm_clock
 -- Target Devices: 
 -- Tool Versions: 
 -- Description: 
+-- This module implements the comparison logic for three 
+-- independent alarms and handles the snooze functionality 
+-- using an internal 5-minute counter.
 -- 
 -- Dependencies: 
 -- 
@@ -35,34 +39,41 @@ use IEEE.NUMERIC_STD.ALL;
 entity alarm_control is
     port (
         -- Global signals
-        clk       : in  std_logic;                     --! Main system clock
-        rst       : in  std_logic;                     --! High-active synchronous reset
-        ce_1s     : in  std_logic;                     --! 1 Hz clock enable for timers
+        clk        : in  std_logic;                    -- Main system clock
+        rst        : in  std_logic;                    -- High-active synchronous reset
+        ce_1s      : in  std_logic;                    -- 1 Hz clock enable for timers
+        
         -- Alarm Enables (Switches)
-        en_al1    : in  std_logic;                     --! Enable Alarm 1
-        en_al2    : in  std_logic;                     --! Enable Alarm 2
-        en_al3    : in  std_logic;                     --! Enable Alarm 3
+        en_al1     : in  std_logic;                    -- Enable Alarm 1
+        en_al2     : in  std_logic;                    -- Enable Alarm 2
+        en_al3     : in  std_logic;                    -- Enable Alarm 3
+        
         -- Control
-        btn_stop  : in  std_logic;                     --! Snooze / Stop button
+        btn_stop   : in  std_logic;                    -- Snooze / Stop button
+        
         -- Current Time Data
-        curr_hh   : in  unsigned(4 downto 0);          --! Current core hours
-        curr_mm   : in  unsigned(5 downto 0);          --! Current core minutes
-        curr_ss   : in  unsigned(5 downto 0);          --! Current core seconds
+        curr_hh    : in  unsigned(4 downto 0);         -- Current core hours
+        curr_mm    : in  unsigned(5 downto 0);         -- Current core minutes
+        curr_ss    : in  unsigned(5 downto 0);         -- Current core seconds
+        
         -- Alarm 1 Settings
-        al1_h     : in  unsigned(4 downto 0);          --! Alarm 1 hours
-        al1_m     : in  unsigned(5 downto 0);          --! Alarm 1 minutes
+        al1_h      : in  unsigned(4 downto 0);         -- Alarm 1 hours
+        al1_m      : in  unsigned(5 downto 0);         -- Alarm 1 minutes
+        
         -- Alarm 2 Settings
-        al2_h     : in  unsigned(4 downto 0);          --! Alarm 2 hours
-        al2_m     : in  unsigned(5 downto 0);          --! Alarm 2 minutes
+        al2_h      : in  unsigned(4 downto 0);         -- Alarm 2 hours
+        al2_m      : in  unsigned(5 downto 0);         -- Alarm 2 minutes
+        
         -- Alarm 3 Settings
-        al3_h     : in  unsigned(4 downto 0);          --! Alarm 3 hours
-        al3_m     : in  unsigned(5 downto 0);          --! Alarm 3 minutes
+        al3_h      : in  unsigned(4 downto 0);         -- Alarm 3 hours
+        al3_m      : in  unsigned(5 downto 0);         -- Alarm 3 minutes
+        
         -- Outputs
-        ringing   : out std_logic;                     --! Buzzer activation signal
-        led_al1   : out std_logic;                     --! Status LED Alarm 1 active
-        led_al2   : out std_logic;                     --! Status LED Alarm 2 active
-        led_al3   : out std_logic                      --! Status LED Alarm 3 active
-    );
+        ringing    : out std_logic;                    -- Buzzer activation signal
+        led_al1    : out std_logic;                    -- Status LED Alarm 1 active
+        led_al2    : out std_logic;                    -- Status LED Alarm 2 active
+        led_al3    : out std_logic                     -- Status LED Alarm 3 active
+     );
 end entity alarm_control;
 
 -------------------------------------------------
@@ -81,13 +92,18 @@ architecture Behavioral of alarm_control is
 
 begin
     
-    -- LED indicators mirror the switch states
+    -------------------------------------------------
+    -- Static Output Assignments
+    -- LED indicators mirror the physical switch states.
+    -------------------------------------------------
     led_al1 <= en_al1;
     led_al2 <= en_al2;
     led_al3 <= en_al3;
 
+
     -------------------------------------------------
     -- Main Alarm Logic Process
+    -- Handles trigger detection, snooze timing, and cancellations.
     -------------------------------------------------
     p_alarm_fsm : process(clk)
     begin
@@ -100,20 +116,20 @@ begin
                 
                 ---------------------------------------------
                 -- 1. Alarm Trigger Detection
+                -- Check for time match only if idle.
                 ---------------------------------------------
-                -- Only check if not already ringing or in snooze mode
                 if s_ringing = '0' and snooze_cnt = 0 then
-                    -- Check Alarm 1
+                    -- Alarm 1 check
                     if curr_hh = al1_h and curr_mm = al1_m and curr_ss = 0 and en_al1 = '1' then
                         s_ringing <= '1'; 
                         active_al <= 1;
                     
-                    -- Check Alarm 2
+                    -- Alarm 2 check
                     elsif curr_hh = al2_h and curr_mm = al2_m and curr_ss = 0 and en_al2 = '1' then
                         s_ringing <= '1'; 
                         active_al <= 2;
                     
-                    -- Check Alarm 3
+                    -- Alarm 3 check
                     elsif curr_hh = al3_h and curr_mm = al3_m and curr_ss = 0 and en_al3 = '1' then
                         s_ringing <= '1'; 
                         active_al <= 3;
@@ -121,9 +137,9 @@ begin
                 end if;
 
                 ---------------------------------------------
-                -- 2. Complete Cancellation (Switch Off)
+                -- 2. Forced Cancellation
+                -- If a switch is toggled OFF, reset the respective alarm state.
                 ---------------------------------------------
-                -- If the switch for the active alarm is turned off, kill all alarm activity
                 if (active_al = 1 and en_al1 = '0') or
                    (active_al = 2 and en_al2 = '0') or
                    (active_al = 3 and en_al3 = '0') then
@@ -134,9 +150,9 @@ begin
                 end if;
 
                 ---------------------------------------------
-                -- 3. Snooze Logic (Button Press)
+                -- 3. Snooze Activation
+                -- Transition from ringing to snooze timer via stop button.
                 ---------------------------------------------
-                -- If ringing and stop button pressed, stop buzzer and start snooze timer
                 if btn_stop = '1' and s_ringing = '1' then
                     s_ringing  <= '0'; 
                     snooze_cnt <= to_unsigned(1, 16);
@@ -144,15 +160,16 @@ begin
 
                 ---------------------------------------------
                 -- 4. Snooze Timer Implementation
+                -- Counts seconds and re-triggers alarm upon reaching limit.
                 ---------------------------------------------
                 if snooze_cnt > 0 then
                     if ce_1s = '1' then
                         if snooze_cnt >= SNOOZE_LIMIT then
-                            -- Time is up, start ringing again
+                            -- Snooze period finished, resume ringing
                             s_ringing  <= '1'; 
                             snooze_cnt <= (others => '0');
                         else 
-                            -- Count elapsed seconds
+                            -- Accumulate elapsed seconds
                             snooze_cnt <= snooze_cnt + 1;
                         end if;
                     end if;
@@ -162,7 +179,10 @@ begin
         end if; -- clk
     end process p_alarm_fsm;
 
-    -- Output assignment
+
+    -------------------------------------------------
+    -- Final Output Assignment
+    -------------------------------------------------
     ringing <= s_ringing;
     
-end architecture Behavioral;
+end Behavioral;
