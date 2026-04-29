@@ -14,11 +14,11 @@
 | Signal Name | Direction | Width | Description |
 | :--- | :---: | :---: | :--- |
 | **clk** | Input | 1 | Systémový hodinový signál 100 MHz |
-| **btnu** | Input | 1 | Tlačítko nahoru (nastavení/zvyšování času hodin a alarmů) |
-| **btnd** | Input | 1 | Tlačítko dolů (nastavení/snižování času hodin a alarmů) |
-| **btnl** | Input | 1 | Tlačítko doleva (přechod mezi módy - hodiny/alarm) |
-| **btnr** | Input | 1 | Tlačítko doprava (přechod mezi nastavováním HH a MM) |
-| **btnc** | Input | 1 | Tlačítko střední (nastavování / potvrzování - podržení min. 2s) |
+| **btnU** | Input | 1 | Tlačítko nahoru (nastavení/zvyšování času hodin a alarmů) |
+| **btnD** | Input | 1 | Tlačítko dolů (nastavení/snižování času hodin a alarmů) |
+| **btnL** | Input | 1 | Tlačítko doleva (přechod mezi módy - hodiny/alarm) |
+| **btnR** | Input | 1 | Tlačítko doprava (přechod mezi nastavováním HH a MM) |
+| **btnC** | Input | 1 | Tlačítko střední (nastavování / potvrzování - podržení min. 2s) |
 | **sw0** | Input | 1 | Vypínač pro zapnutí/vypnutí budíku 1 |
 | **sw1** | Input | 1 | Vypínač pro zapnutí/vypnutí budíku 2 |
 | **sw2** | Input | 1 | Vypínač pro zapnutí/vypnutí budíku 3 |
@@ -30,17 +30,17 @@
 
 ### Popis jednotlivých periferií 
 _**Vstupní perifirie**_
-- CLK 100MHz -> vstupné hodinový tak, pro řízení hodin
-- BTNU a BTND -> tlačítka pro nastavení šasu hodin  alarmů
-- BTNL a BTNR -> přechod mezi módy a mezi HH a MM při nastavování času
-- BTNC -> slouží k **nastavoání/potvrzování** (k nastavení dojde, pokud bude stlačeno po dobu minimálně 2 sekund)
+- CLK -> vstupné hodinový tak, pro řízení hodin
+- btnU a btnD -> tlačítka pro nastavení šasu hodin  alarmů
+- btnL a btnR -> přechod mezi módy a mezi HH a MM při nastavování času
+- btnC -> slouží k **nastavoání/potvrzování** (k nastavení dojde, pokud bude stlačeno po dobu minimálně 2 sekund)
 - SW [0:2] -> vypínače slouží k zapnití a vypnutí budíku
 
 _**Výstupní perifirie**_
-- AN [7:0] -> slouží k řízení anod sedmisegmentového displeje
-- SEG [6:0] -> řízení jednotlivých segmentů každého sedmisegmentového displeje
+- an [7:0] -> slouží k řízení anod sedmisegmentového displeje
+- seg [6:0] -> řízení jednotlivých segmentů každého sedmisegmentového displeje
 - BUZZER -> řízení alarmu (přiřadit periferii)
-- LED_OUT [16:0] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
+- led [16:0] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
 
 
 ## Teoretický popis
