@@ -5,7 +5,7 @@
 3. Jan Jaroslav Koláček (zodpovědný za obsluhu alarmu)
 
 ### Blokové schéma Alarm Clock
-![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Alarm_clock.drawio%20(1).png)
+![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20bez%20n%C3%A1zvu-Str%C3%A1nka-2.drawio.png)
 
 
 
