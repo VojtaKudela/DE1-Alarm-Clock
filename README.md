@@ -225,8 +225,7 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 <div><img src="Simulations/up_down_counter_sim.png" width="600" alt="Simulace čítače 2"></div>
 
 ### 8. Návrh posteru
-<img width="862" height="1146" alt="image" src="https://github.com/user-attachments/assets/3db1e7e6-97b5-46ca-bd42-ac5f139cd460" />
-
+<img width="862" height="1149" alt="image" src="https://github.com/user-attachments/assets/4f80b331-321a-422d-baa8-b1197a40bd90" />
 
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
