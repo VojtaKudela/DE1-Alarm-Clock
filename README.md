@@ -1,10 +1,10 @@
 # DE1-Alarm Clock
 
 1. Lukáš Katrňák (zodpovědný za obsluhu sedmisegmentového displeje)
-2. Vojtěch Kudela (zodpovědný za řízení hodin)
-3. Jan Jaroslav Koláček (zodpovědný za obsluhu alarmu)
+2. Vojtěch Kudela (zodpovědný za řízení hodin a finální kompletaci)
+3. Jan Jaroslav Koláček (zodpovědný za obsluhu alarmu a poster)
 
-### Blokové schéma Alarm Clock
+## Blokové schéma Alarm Clock
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20bez%20n%C3%A1zvu-Str%C3%A1nka-2.drawio.png)
 
 ## Teoretický popis
