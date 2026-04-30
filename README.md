@@ -4,12 +4,12 @@
 2. Vojtěch Kudela (zodpovědný za řízení hodin a finální kompletaci)
 3. Jan Jaroslav Koláček (zodpovědný za obsluhu alarmu a poster)
 
-## Blokové schéma Alarm Clock
-![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20bez%20n%C3%A1zvu-Str%C3%A1nka-2.drawio.png)
-
 ## Teoretický popis
 
 Tento projekt se zaměřuje na realizaci plně funkčního digitálního budíku v jazyce VHDL, určeného pro implementaci do hradlových polí (FPGA). Cílem bylo vytvořit systém, který nejen přesně měří čas, ale také poskytuje pokročilé uživatelské rozhraní pro správu více budíků s funkcí odloženého buzení (Snooze). Návrh je postaven na principech synchronní číslicové techniky, modularity a efektivního využití hardwarových zdrojů.
+
+### Blokové schéma Alarm Clock
+![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20bez%20n%C3%A1zvu-Str%C3%A1nka-2.drawio.png)
 
 ### Časová základna a hierarchické dělení kmitočtu
 Základem každého digitálního chronometru je stabilní oscilátor. Vzhledem k tomu, že vnitřní hodiny FPGA pracují na vysoké frekvenci (typicky 100 MHz), tvoří první logickou vrstvu kódu generátor povolovacích pulzů (Clock Enable). Místo vytváření nových hodinových domén, které by mohly vést k problémům s časováním, systém využívá čítač, který každou sekundu vygeneruje jeden krátký pulz. Tento pulz slouží jako impuls pro hlavní čítač času, který v kaskádovém uspořádání inkrementuje vteřiny, minuty a hodiny v šestnáctkové či desítkové soustavě s příslušnými moduly (60 pro vteřiny a minuty, 24 pro hodiny).
@@ -51,11 +51,13 @@ _**Vstupní perifirie**_
 
 ### Náhled na zařízení
 
-![TOP_LEVEL](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/TOP_ALARM_CLOCK.png)
+
 
 ### Top level
 
 Blok [`top_alarm_clock`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/top_alarm_clock.vhd) je nejvyšší úrovní celého zařízení. Zde jsou utvořeny vývody pro jednotlivé periferie, které jsou poté přiřazeny pomocí contrainu. Vývody btnC, btnD, btnU, btnR a btnL jsou připojeny k jednotlivým tlačítkům na desce. Vývod LED[15:0] je připojen k LED diodám na desce. Vývody CA, CB, CC, CD, CE, CF, CG, DP, AN[7:0] řídí sedmisegmentový display. Vývod CLK100MHZ potom je připojen na zdroj hodinových pulzů.
+
+![TOP_LEVEL](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/TOP_ALARM_CLOCK.png)
 
 ## Sofwarový popis
 Celé zařízení je možno si rozdělit na několika částí. Každý z nich obsahuje odlišnou část zařízení. 
