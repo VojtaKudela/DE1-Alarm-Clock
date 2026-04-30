@@ -176,7 +176,7 @@ Piezo bzučák připojený na Pmod konektor potřebuje pro generování zvuku PW
 
 ### Popis ovládacích prvků
 
-![]()
+![](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Popis%20ovl%C3%A1dac%C3%ADch%20prvk%C5%AF.png)
 
 ### Video ukázka
 <div align="center">
