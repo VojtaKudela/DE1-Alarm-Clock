@@ -8,12 +8,14 @@
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20bez%20n%C3%A1zvu-Str%C3%A1nka-2.drawio.png)
 
 
+## Popis jednotlivých periferií
 
-## Inputs and Outputs
+_**Vstupní perifirie**_
 
 | Signal Name | Direction | Width | Description |
 | :--- | :---: | :---: | :--- |
 | **clk** | Input | 1 | Systémový hodinový signál 100 MHz |
+| **rst** | Input | 1 | Reset celých hodin provádějí se pomocí vypínače rst _**(sw15)**_ |
 | **btnU** | Input | 1 | Tlačítko nahoru (nastavení/zvyšování času hodin a alarmů) |
 | **btnD** | Input | 1 | Tlačítko dolů (nastavení/snižování času hodin a alarmů) |
 | **btnL** | Input | 1 | Tlačítko doleva (přechod mezi módy - hodiny/alarm) |
@@ -27,20 +29,6 @@
 | **dp** | Output | 1 | Desetinná tečka displeje (indikace plynoucích sekund) |
 | **led[2:0]** | Output | 3 | Indikace stavu budíků on/off |
 | **buzzer** | Output | 1 | Výstup pro zvukový generátor signálu (bzučák) |
-
-### Popis jednotlivých periferií 
-_**Vstupní perifirie**_
-- CLK -> vstupné hodinový tak, pro řízení hodin
-- btnU a btnD -> tlačítka pro nastavení šasu hodin  alarmů
-- btnL a btnR -> přechod mezi módy a mezi HH a MM při nastavování času
-- btnC -> slouží k **nastavoání/potvrzování** (k nastavení dojde, pokud bude stlačeno po dobu minimálně 2 sekund)
-- SW [0:2] -> vypínače slouží k zapnití a vypnutí budíku
-
-_**Výstupní perifirie**_
-- an [7:0] -> slouží k řízení anod sedmisegmentového displeje
-- seg [6:0] -> řízení jednotlivých segmentů každého sedmisegmentového displeje
-- BUZZER -> řízení alarmu (přiřadit periferii)
-- led [16:0] -> 3 LED nad switchy představují indikaci stavu budíku **on/off** (LED 0:2) a zbylé budou sloužit jako signalizace budíku (budou spuštěny ve stejný moment, kdy se spustí alarm)
 
 
 ## Teoretický popis
