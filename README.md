@@ -24,7 +24,7 @@ Pro zobrazení času je využit sedmisegmentový displej s technologií dynamick
 Systém obsahuje vnitřní paměťové registry pro uložení tří časů buzení. Komparační jednotka v každém hodinovém cyklu porovnává aktuální čas s časy v paměti. Pokud dojde ke shodě a daný budík je aktivován uživatelským přepínačem, dojde k aktivaci zvukového výstupu. Implementovaná funkce Snooze využívá pomocný čítač, který po stisku tlumicího tlačítka pozastaví alarm na přesně definovaný interval (5 minut), po jehož uplynutí se proces porovnávání a buzení automaticky restartuje.
 
 ## Hardwarový popis a demo aplikace
-Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsahuje mimo jiné **osmimístný sedmisegmentový display**, **16 LED diod** a **5 tlačítek**, což jsou periferie, které byly užity. Další zařízení bylo připojeno na vnější porty **DOPLNIT**. Na ten byl připojen _**buzzer**_, který slouží k zvukové signalizaci, při spuštění alarmu.
+Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsahuje mimo jiné **osmimístný sedmisegmentový display**, **3 LED diody** a **5 tlačítek**, což jsou periferie, které byly užity. Další zařízení bylo připojeno na vnější port **buzzer**, tedy *(JA[1])*. Na ten byl připojen _**buzzer**_, který slouží k zvukové signalizaci, při spuštění alarmu.
 
 ![Náhled na zařízení](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/N%C3%A1hled.jpg)
 
