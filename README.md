@@ -177,17 +177,17 @@ Piezo bzučák připojený na Pmod konektor potřebuje pro generování zvuku PW
 
 Po spuštění desky zařízení začne pracovat. Chod zařízení *řídí tlačítka na desce*. Umožňují **nastavovat čas**, **přepínat mezi jednotlivými módy** a přejít do **režimu nastavení času**.
 
+![](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Popis%20ovl%C3%A1dac%C3%ADch%20prvk%C5%AF.png)
+
 ### Natavení času
 
-K možnosti nastavení času je potřeba po dobu 2 sekund stlačit tlačítko **NASTAVENÍ**. Primárně je nastaveno, že se nejdříve nastavuje čas hodin HH. K nastavení času slouží tlačítka **TIME +/-**. Čas HH je možné nastavovat v **rozmezí 0-23. Stejným způsobem se nastaveuje čas minut MM, přičemž rozsah je v **rozmezí 0-59**. K přechodu mezi nastavováním HH a MM slouží tlačítka **MODE PŘEDCHOZÍ / DALŠÍ**. Při stisku se na displeji zobrazí nastavený čas. Pro potvrzení nastaveného času stačí pouze stlačit tlačítko **NASTAVENÍ**. 
+K možnosti nastavení času je potřeba po dobu 2 sekund stlačit tlačítko **NASTAVENÍ**. Primárně je nastaveno, že se nejdříve nastavuje čas hodin HH. K nastavení času slouží tlačítka **TIME +/-**. Čas HH je možné nastavovat v **rozmezí 0-23. Stejným způsobem se nastaveuje čas minut MM, přičemž rozsah je v **rozmezí 0-59**. K přechodu mezi nastavováním HH a MM slouží tlačítka **MODE HH / MM**. Při stisku se na displeji zobrazí nastavený čas. Pro potvrzení nastaveného času stačí pouze stlačit tlačítko **NASTAVENÍ**. 
 
 ### Nastavení módu
 
 Mód zařízení nastavíme stiskem **MODE PŘEDCHOZÍ / DALŠÍ. Zařízení pracuje ve čtyřeč módech: HODINY, ALARM 1 ALARM 2 a ALARM 3.
 
 Nastavený mód bude zobrazen na displeji.
-
-![](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Popis%20ovl%C3%A1dac%C3%ADch%20prvk%C5%AF.png)
 
 ### Video ukázka
 <div align="center">
