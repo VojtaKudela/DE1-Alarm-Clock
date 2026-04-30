@@ -26,6 +26,8 @@ Systém obsahuje vnitřní paměťové registry pro uložení tří časů buzen
 ## Hardwarový popis a demo aplikace
 Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsahuje mimo jiné **osmimístný sedmisegmentový display**, **16 LED diod** a **5 tlačítek**, což jsou periferie, které byly užity. Další zařízení bylo připojeno na vnější porty **DOPLNIT**. Na ten byl připojen _**buzzer**_, který slouží k zvukové signalizaci, při spuštění alarmu.
 
+![Náhled na zařízení](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/N%C3%A1hled.jpg)
+
 ## Popis jednotlivých periferií
 
 _**Vstupní perifirie**_
@@ -47,11 +49,6 @@ _**Vstupní perifirie**_
 | **dp** | Output | 1 | Desetinná tečka displeje (indikace plynoucích sekund) |
 | **led[2:0]** | Output | 3 | Indikace stavu budíků on/off |
 | **buzzer** | Output | 1 | Výstup pro zvukový generátor signálu (bzučák) |
-
-
-### Náhled na zařízení
-
-
 
 ### Top level
 
