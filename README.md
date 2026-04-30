@@ -4,6 +4,9 @@
 2. Vojtěch Kudela (zodpovědný za řízení hodin)
 3. Jan Jaroslav Koláček (zodpovědný za obsluhu alarmu)
 
+### Blokové schéma Alarm Clock
+![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20bez%20n%C3%A1zvu-Str%C3%A1nka-2.drawio.png)
+
 ## Teoretický popis
 
 Tento projekt se zaměřuje na realizaci plně funkčního digitálního budíku v jazyce VHDL, určeného pro implementaci do hradlových polí (FPGA). Cílem bylo vytvořit systém, který nejen přesně měří čas, ale také poskytuje pokročilé uživatelské rozhraní pro správu více budíků s funkcí odloženého buzení (Snooze). Návrh je postaven na principech synchronní číslicové techniky, modularity a efektivního využití hardwarových zdrojů.
@@ -22,11 +25,6 @@ Systém obsahuje vnitřní paměťové registry pro uložení tří časů buzen
 
 ## Hardwarový popis a demo aplikace
 Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsahuje mimo jiné **osmimístný sedmisegmentový display**, **16 LED diod** a **5 tlačítek**, což jsou periferie, které byly užity. Další zařízení bylo připojeno na vnější porty **DOPLNIT**. Na ten byl připojen _**buzzer**_, který slouží k zvukové signalizaci, při spuštění alarmu.
-
-
-### Blokové schéma Alarm Clock
-![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Diagram%20bez%20n%C3%A1zvu-Str%C3%A1nka-2.drawio.png)
-
 
 ## Popis jednotlivých periferií
 
