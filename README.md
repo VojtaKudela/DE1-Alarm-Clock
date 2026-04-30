@@ -30,7 +30,6 @@ Zařízení bylo oživeno a testováno na desce **NEXY-A7-50T**. Tato deska obsa
 
 ## Popis jednotlivých periferií
 
-_**Vstupní perifirie**_
 
 | Signal Name | Direction | Width | Description |
 | :--- | :---: | :---: | :--- |
