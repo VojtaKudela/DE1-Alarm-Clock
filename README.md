@@ -177,7 +177,7 @@ Piezo bzučák připojený na Pmod konektor potřebuje pro generování zvuku PW
 ### Nastavení času
 
 ### Video ukázka
-<a href="https://youtu.be/QMtP-8n-iPY" target="_blank">
+<a href="https://www.youtube.com/watch?v=QMtP-8n-iPY" target="_blank">
   <img src="https://img.youtube.com/vi/QMtP-8n-iPY/maxresdefault.jpg" alt="Popis tvého video návodu" width="800" />
 </a>
 
