@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: Vojtěch Kudela
--- @copyright (c) 2026 Vojtěch Kudela, MIT license
+-- Engineer: Vojtech Kudela
+-- @copyright (c) 2026 Vojtech Kudela, MIT license
 -- 
 -- Create Date: 23.04.2026 15:05:29
 -- Design Name: time_core
@@ -40,54 +40,89 @@ entity time_core is
     port (
         clk        : in  std_logic;                    -- Main system clock
         rst        : in  std_logic;                    -- High-active synchronous reset
-        -- Control buttons
-        btnL       : in  std_logic;                    -- Left button (Mode down)
-        btnR       : in  std_logic;                    -- Right button (Mode up)
-        btn_c      : in  std_logic;                    -- Center button (Set/OK)
-        btn_up     : in  std_logic;                    -- Up button (Increment)
-        btn_down   : in  std_logic;                    -- Down button (Decrement)
-        -- Time outputs
+        -- Debounced button inputs
+        btnL       : in  std_logic;                    -- Left button (navigation)
+        btnR       : in  std_logic;                    -- Right button (navigation)
+        btn_c      : in  std_logic;                    -- Center button (mode/set)
+        btn_up     : in  std_logic;                    -- Up button (increment)
+        btn_down   : in  std_logic;                    -- Down button (decrement)
+        -- Core outputs
         HH         : out std_logic_vector(4 downto 0); -- Current hours
         MM         : out std_logic_vector(5 downto 0); -- Current minutes
         SS         : out std_logic_vector(5 downto 0); -- Current seconds
-        -- Status outputs
-        ce_1s_out  : out std_logic;                    -- 1Hz clock enable signal
+        ce_1s_out  : out std_logic;                    -- 1Hz pulse output for other modules
         view_mode  : out std_logic_vector(1 downto 0); -- Current display mode
-        set_en_out : out std_logic;                    -- Programming mode active
-        set_hh_out : out std_logic;                    -- Setting hours flag
-        set_mm_out : out std_logic                     -- Setting minutes flag
+        set_en_out : out std_logic;                    -- Setting mode active indicator
+        set_hh_out : out std_logic;                    -- Hours setting active indicator
+        set_mm_out : out std_logic                     -- Minutes setting active indicator
     );
 end entity time_core;
 
--------------------------------------------------
--- Time Core Architecture
 architecture Behavioral of time_core is
 
-    -- Internal signals for time-keeping
-    signal ce_1s          : std_logic;
-    signal sig_set_en     : std_logic;
-    signal sig_run_time   : std_logic;
-    signal sig_set_hh     : std_logic;
-    signal sig_set_mm     : std_logic;
-    signal sig_view_sel   : std_logic_vector(1 downto 0);
-    
-    -- Time registers
-    signal reg_hh         : integer range 0 to 23 := 0;
-    signal reg_mm         : integer range 0 to 59 := 0;
-    signal reg_ss         : integer range 0 to 59 := 0;
-    
-    -- Edge detection registers for setting mode
-    signal btn_up_last    : std_logic := '0';
-    signal btn_down_last  : std_logic := '0';
+    component clk_en
+        generic (
+            G_MAX : positive
+        );
+        port (
+            clk : in  std_logic;
+            rst : in  std_logic;
+            ce  : out std_logic
+        );
+    end component;
+
+    component main_loop
+        port (
+            clk        : in  std_logic;
+            rst        : in  std_logic;
+            mode_up    : in  std_logic;
+            mode_down  : in  std_logic;
+            set_btn    : in  std_logic;
+            up_btn     : in  std_logic;
+            down_btn   : in  std_logic;
+            ce_1s      : in  std_logic;
+            view_sel   : out std_logic_vector(1 downto 0);
+            run_time   : out std_logic;
+            set_en     : out std_logic;
+            set_hh     : out std_logic;
+            set_mm     : out std_logic;
+            dot_on     : out std_logic;
+            view_dbg   : out std_logic_vector(1 downto 0);
+            set_dbg    : out std_logic_vector(1 downto 0)
+        );
+    end component;
+
+    component time_counter
+        port (
+            clk        : in  std_logic;
+            rst        : in  std_logic;
+            ce_1s      : in  std_logic;
+            run_time   : in  std_logic;
+            set_en     : in  std_logic;
+            view_mode  : in  std_logic_vector(1 downto 0);
+            set_hh     : in  std_logic;
+            set_mm     : in  std_logic;
+            btn_up     : in  std_logic;
+            btn_down   : in  std_logic;
+            HH         : out std_logic_vector(4 downto 0);
+            MM         : out std_logic_vector(5 downto 0);
+            SS         : out std_logic_vector(5 downto 0)
+        );
+    end component;
+
+    signal ce_1s          : std_logic;                    -- Internal 1Hz pulse
+    signal sig_set_en     : std_logic;                    -- Internal set enable flag
+    signal sig_run_time   : std_logic;                    -- Internal run time flag
+    signal sig_set_hh     : std_logic;                    -- Internal set hours flag
+    signal sig_set_mm     : std_logic;                    -- Internal set minutes flag
+    signal sig_view_sel   : std_logic_vector(1 downto 0); -- Internal view mode selection
 
 begin
-
-    -------------------------------------------------
-    -- Clock Enable Generator (1 Hz)
-    -------------------------------------------------
-    CLKDIV : entity work.clk_en
+    
+    -- Clock enable generator for 1Hz timebase
+    CLKDIV : clk_en
         generic map (
-            G_MAX => 100_000_000
+            G_MAX => 100_000_000 -- Assuming 100MHz system clock
         )
         port map (
             clk => clk,
@@ -95,10 +130,8 @@ begin
             ce  => ce_1s
         );
 
-    -------------------------------------------------
-    -- Main Control FSM (Mode Selection)
-    -------------------------------------------------
-    MAIN_FSM : entity work.main_loop
+    -- Main state machine for controlling modes and settings
+    MAIN_FSM : main_loop
         port map (
             clk       => clk,
             rst       => rst,
@@ -113,114 +146,35 @@ begin
             set_en    => sig_set_en,
             set_hh    => sig_set_hh,
             set_mm    => sig_set_mm,
-            dot_on    => open
+            dot_on    => open -- Unused debug output
         );
 
-    -------------------------------------------------
-    -- Time Management Process
-    -------------------------------------------------
-    p_time_counter : process(clk)
-    begin
-        -- All operations are synchronized to the rising edge of the system clock
-        if rising_edge(clk) then
-            
-            -- Synchronous reset: Pre-sets all time values and edge registers to zero
-            if rst = '1' then
-                reg_hh        <= 0;
-                reg_mm        <= 0;
-                reg_ss        <= 0;
-                btn_up_last   <= '0';
-                btn_down_last <= '0';
-            else
-                -- Store current button states to detect rising edge in the next clock cycle
-                btn_up_last   <= btn_up;
-                btn_down_last <= btn_down;
+    -- Actual time counter logic
+    COUNTER : time_counter
+        port map (
+            clk        => clk,
+            rst        => rst,
+            ce_1s      => ce_1s,
+            run_time   => sig_run_time,
+            set_en     => sig_set_en,
+            view_mode  => sig_view_sel,
+            set_hh     => sig_set_hh,
+            set_mm     => sig_set_mm,
+            btn_up     => btn_up,
+            btn_down   => btn_down,
+            HH         => HH,
+            MM         => MM,
+            SS         => SS
+        );
 
-                --------------------------------------------------------
-                -- [1] AUTOMATIC TIME INCREMENT (Clock Ticking)
-                -- Triggered once per second by the ce_1s pulse.
-                --------------------------------------------------------
-                if (sig_run_time = '1' and ce_1s = '1') then
-                    -- Second increment logic with overflow to minutes
-                    if reg_ss = 59 then
-                        reg_ss <= 0;
-                        -- Minute increment logic with overflow to hours
-                        if reg_mm = 59 then
-                            reg_mm <= 0;
-                            -- Hour increment logic with overflow to midnight (24h format)
-                            if reg_hh = 23 then 
-                                reg_hh <= 0; 
-                            else 
-                                reg_hh <= reg_hh + 1; 
-                            end if;
-                        else
-                            reg_mm <= reg_mm + 1;
-                        end if;
-                    else
-                        reg_ss <= reg_ss + 1;
-                    end if;
-                end if;
-
-                --------------------------------------------------------
-                -- [2] MANUAL TIME SETTING (Programming Mode)
-                -- Allows user to adjust hours/minutes using Up/Down buttons.
-                --------------------------------------------------------
-                if (sig_set_en = '1' and sig_view_sel = "00") then
-                    
-                    -- HOURS ADJUSTMENT
-                    if sig_set_hh = '1' then
-                        -- Increment hours on button press (rising edge)
-                        if (btn_up = '1' and btn_up_last = '0') then
-                            if reg_hh = 23 then 
-                                reg_hh <= 0; 
-                            else 
-                                reg_hh <= reg_hh + 1; 
-                            end if;
-                        -- Decrement hours on button press (rising edge)
-                        elsif (btn_down = '1' and btn_down_last = '0') then
-                            if reg_hh = 0 then 
-                                reg_hh <= 23; 
-                            else 
-                                reg_hh <= reg_hh - 1; 
-                            end if;
-                        end if;
-                    
-                    -- MINUTES ADJUSTMENT
-                    elsif sig_set_mm = '1' then
-                        -- Increment minutes on button press (rising edge)
-                        if (btn_up = '1' and btn_up_last = '0') then
-                            if reg_mm = 59 then 
-                                reg_mm <= 0; 
-                            else 
-                                reg_mm <= reg_mm + 1; 
-                            end if;
-                        -- Decrement minutes on button press (rising edge)
-                        elsif (btn_down = '1' and btn_down_last = '0') then
-                            if reg_mm = 0 then 
-                                reg_mm <= 59; 
-                            else 
-                                reg_mm <= reg_mm - 1; 
-                            end if;
-                        end if;
-                    end if;
-
-                end if; -- End of manual setting
-            end if; -- End of reset/logic
-        end if; -- End of clock edge
-    end process p_time_counter;
-
-    -------------------------------------------------
+    -- ------------------------------------------
     -- Output Assignments
-    -------------------------------------------------
+    -- ------------------------------------------
+    -- Route internal signals to the module outputs
     ce_1s_out  <= ce_1s;
     view_mode  <= sig_view_sel;
     set_en_out <= sig_set_en;
     set_hh_out <= sig_set_hh;
     set_mm_out <= sig_set_mm;
-
-    -- Type conversion from integer to std_logic_vector
-    HH <= std_logic_vector(to_unsigned(reg_hh, 5));
-    MM <= std_logic_vector(to_unsigned(reg_mm, 6));
-    SS <= std_logic_vector(to_unsigned(reg_ss, 6));
 
 end Behavioral;
