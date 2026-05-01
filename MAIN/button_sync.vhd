@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: Vojtěch Kudela
--- @copyright (c) 2026 Vojtěch Kudela, MIT license
+-- Engineer: Vojtech Kudela
+-- @copyright (c) 2026 Vojtech Kudela, MIT license
 -- 
 -- Create Date: 23.04.2026 19:42:37
 -- Design Name: button_sync
@@ -40,12 +40,14 @@ entity button_sync is
     port (
         clk    : in  std_logic; -- Main system clock
         rst    : in  std_logic; -- High-active synchronous reset
+        
         -- Raw button inputs from FPGA pins
         btnU   : in  std_logic; -- Raw Up button
         btnD   : in  std_logic; -- Raw Down button
         btnL   : in  std_logic; -- Raw Left button
         btnR   : in  std_logic; -- Raw Right button
         btnC   : in  std_logic; -- Raw Center button
+        
         -- Cleaned (debounced) outputs for internal logic
         cleanU : out std_logic; -- Debounced Up signal
         cleanD : out std_logic; -- Debounced Down signal
@@ -58,6 +60,17 @@ end entity button_sync;
 -------------------------------------------------
 -- Button Sync Architecture
 architecture Behavioral of button_sync is
+
+    component debounce
+        port (
+            clk        : in  std_logic;
+            rst        : in  std_logic;
+            btn_in     : in  std_logic;
+            btn_state  : out std_logic;
+            btn_press  : out std_logic
+        );
+    end component;
+    
 begin
 
     -------------------------------------------------
@@ -68,53 +81,53 @@ begin
     -------------------------------------------------
 
     -- Up button debouncer
-    DEB_U : entity work.debounce 
+    DEB_U : debounce 
         port map (
             clk        => clk,
             rst        => rst,
             btn_in     => btnU,
             btn_state  => cleanU,
-            btn_press  => open
+            btn_press  => open -- Edge detection pulse not used here
         );
         
-    -- Down button debouncer
-    DEB_D : entity work.debounce 
+    -- Down button debouncer instance
+    DEB_D : debounce 
         port map (
             clk        => clk,
             rst        => rst,
             btn_in     => btnD,
             btn_state  => cleanD,
-            btn_press  => open
+            btn_press  => open -- Edge detection pulse not used here
         );
     
-    -- Left button debouncer
-    DEB_L : entity work.debounce 
+    -- Left button debouncer instance
+    DEB_L : debounce 
         port map (
             clk        => clk,
             rst        => rst,
             btn_in     => btnL,
             btn_state  => cleanL,
-            btn_press  => open
+            btn_press  => open -- Edge detection pulse not used here
         );
     
-    -- Right button debouncer
-    DEB_R : entity work.debounce 
+    -- Right button debouncer instance
+    DEB_R : debounce 
         port map (
             clk        => clk,
             rst        => rst,
             btn_in     => btnR,
             btn_state  => cleanR,
-            btn_press  => open
+            btn_press  => open -- Edge detection pulse not used here
         );
     
-    -- Center button debouncer
-    DEB_C : entity work.debounce 
+    -- Center button debouncer instance
+    DEB_C : debounce 
         port map (
             clk        => clk,
             rst        => rst,
             btn_in     => btnC,
             btn_state  => cleanC,
-            btn_press  => open
+            btn_press  => open -- Edge detection pulse not used here
         );
 
 end Behavioral;
