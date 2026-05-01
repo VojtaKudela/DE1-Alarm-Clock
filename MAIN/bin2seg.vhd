@@ -63,9 +63,13 @@ begin
     -------------------------------------------------
     p_7seg_decoder : process (bin, clear) is
     begin
-        -- Clear condition:
-        -- All segments off (display blank)
-        -- Note: active-low display (1 = off)
+        
+        -------------------------------------------------
+        -- 7-Segment Decoder Process
+        -- Combinational logic mapping binary codes
+        -- to segment activation patterns.
+        -------------------------------------------------
+        
         if (clear = '1') then
             seg <= "1111111";
 
@@ -93,7 +97,7 @@ begin
                 when "01110" => seg <= "1100010"; -- o
                 when "01111" => seg <= "1000010"; -- d
 
-                -- Undefined values ? blank display
+                -- Undefined values -> blank display
                 when others  => seg <= "1111111";
 
             end case;
