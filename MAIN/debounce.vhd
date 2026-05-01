@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: Vojtěch Kudela
--- @copyright (c) 2025-2026 Vojtěch Kudela, MIT license
+-- Engineer: Vojtech Kudela
+-- @copyright (c) 2025-2026 Vojtech Kudela, MIT license
 -- 
 -- Create Date: 23.04.2026 14:56:27
 -- Design Name: debounce
@@ -53,6 +53,17 @@ end entity debounce;
 -- Button Debouncer Architecture
 architecture Behavioral of debounce is
 
+    component clk_en
+        generic (
+            G_MAX : positive
+        );
+        port (
+            clk : in  std_logic;
+            rst : in  std_logic;
+            ce  : out std_logic
+        );
+    end component;
+
     -- Signals for synchronization (meta-stability protection)
     signal sync0        : std_logic := '0';
     signal sync1        : std_logic := '0';
@@ -77,7 +88,7 @@ begin
     -- Clock Enable Generator
     -- Creates a sampling pulse every C_MAX clock cycles
     -------------------------------------------------
-    clk_en_inst : entity work.clk_en
+    clk_en_inst : clk_en
         generic map (
             G_MAX => C_MAX
         )
