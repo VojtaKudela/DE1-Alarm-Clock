@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: Vojtěch Kudela
--- @copyright (c) 2026 Vojtěch Kudela, MIT license
+-- Engineer: Vojtech Kudela
+-- @copyright (c) 2026 Vojtech Kudela, MIT license
 -- 
 -- Create Date: 23.04.2026 15:03:56
 -- Design Name: main_loop
@@ -261,12 +261,24 @@ begin
                 dot_on   <= ce_1s; -- Blink dot with 1s period
                  
             when S_HH => 
-                run_time <= '0'; 
+                -- Halt time counting ONLY if modifying the main time
+                if view_state = TIME_VIEW then
+                    run_time <= '0'; 
+                else
+                    run_time <= '1';
+                end if;
+                
                 set_en   <= '1'; 
                 set_hh   <= up_btn or down_btn;
                  
             when S_MM => 
-                run_time <= '0'; 
+                -- Halt time counting ONLY if modifying the main time
+                if view_state = TIME_VIEW then
+                    run_time <= '0'; 
+                else
+                    run_time <= '1';
+                end if;
+                
                 set_en   <= '1'; 
                 set_mm   <= up_btn or down_btn;
         end case;
