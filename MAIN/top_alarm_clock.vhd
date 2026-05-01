@@ -1,7 +1,7 @@
 ----------------------------------------------------------------------------------
 -- Company: 
--- Engineer: Vojtěch Kudela
--- @copyright (c) 2026 Vojtěch Kudela, MIT license
+-- Engineer: Vojtech Kudela
+-- @copyright (c) 2026 Vojtech Kudela, MIT license
 -- 
 -- Create Date: 23.04.2026 17:30:24
 -- Design Name: top_alarm_clock
@@ -56,7 +56,7 @@ entity top_alarm_clock is
         an       : out std_logic_vector(7 downto 0);   -- Common anodes for 8 digits
         dp       : out std_logic;                      -- Decimal point output
         -- Peripheral Outputs
-        led      : out std_logic_vector(15 downto 0);  -- Status LEDs for alarm indication
+        led      : out std_logic_vector(2 downto 0);   -- ZMĚNĚNO: Pouze 3 LED pro indikaci alarmů
         buzzer   : out std_logic                       -- Output for piezo buzzer
     );
 end entity top_alarm_clock;
@@ -64,6 +64,88 @@ end entity top_alarm_clock;
 -------------------------------------------------
 -- Top Alarm Clock Architecture
 architecture Behavioral of top_alarm_clock is
+
+    component button_sync
+        port (
+            clk    : in  std_logic;
+            rst    : in  std_logic;
+            btnU   : in  std_logic;
+            btnD   : in  std_logic;
+            btnL   : in  std_logic;
+            btnR   : in  std_logic;
+            btnC   : in  std_logic;
+            cleanU : out std_logic;
+            cleanD : out std_logic;
+            cleanL : out std_logic;
+            cleanR : out std_logic;
+            cleanC : out std_logic
+        );
+    end component;
+
+    component time_core
+        port (
+            clk        : in  std_logic;
+            rst        : in  std_logic;
+            btnL       : in  std_logic;
+            btnR       : in  std_logic;
+            btn_c      : in  std_logic;
+            btn_up     : in  std_logic;
+            btn_down   : in  std_logic;
+            HH         : out std_logic_vector(4 downto 0);
+            MM         : out std_logic_vector(5 downto 0);
+            SS         : out std_logic_vector(5 downto 0);
+            ce_1s_out  : out std_logic;
+            view_mode  : out std_logic_vector(1 downto 0);
+            set_en_out : out std_logic;
+            set_hh_out : out std_logic;
+            set_mm_out : out std_logic
+        );
+    end component;
+
+    component alarm_system
+        port (
+            clk        : in  std_logic;
+            rst        : in  std_logic;
+            ce_1s      : in  std_logic;
+            btn_up     : in  std_logic;
+            btn_down   : in  std_logic;
+            btn_stop   : in  std_logic;
+            view_mode  : in  std_logic_vector(1 downto 0);
+            set_en     : in  std_logic;
+            set_hh     : in  std_logic;
+            set_mm     : in  std_logic;
+            en_al1     : in  std_logic;
+            en_al2     : in  std_logic;
+            en_al3     : in  std_logic;
+            curr_hh    : in  std_logic_vector(4 downto 0);
+            curr_mm    : in  std_logic_vector(5 downto 0);
+            curr_ss    : in  std_logic_vector(5 downto 0);
+            alarm_hh   : out std_logic_vector(4 downto 0);
+            alarm_mm   : out std_logic_vector(5 downto 0);
+            ringing    : out std_logic;
+            led_al1    : out std_logic;
+            led_al2    : out std_logic;
+            led_al3    : out std_logic
+        );
+    end component;
+
+    component display_driver
+        port (
+            clk       : in  std_logic;
+            rst       : in  std_logic;
+            curr_hh   : in  std_logic_vector(4 downto 0);
+            curr_mm   : in  std_logic_vector(5 downto 0);
+            alarm_hh  : in  std_logic_vector(4 downto 0);
+            alarm_mm  : in  std_logic_vector(5 downto 0);
+            view_mode : in  std_logic_vector(1 downto 0);
+            set_en    : in  std_logic;
+            set_hh    : in  std_logic;
+            set_mm    : in  std_logic;
+            seg_o     : out std_logic_vector(6 downto 0);
+            dig_o     : out std_logic_vector(7 downto 0);
+            dp_o      : out std_logic
+        );
+    end component;
 
     -- Internal signals for debounced and synchronized buttons
     signal clean_btnU   : std_logic;
@@ -100,7 +182,7 @@ begin
     -- Button synchronization and debouncing
     -- Ensures stable signals from mechanical buttons
     -------------------------------------------------
-    BTN_SYNC_INST : entity work.button_sync
+    BTN_SYNC_INST : button_sync
         port map (
             clk    => clk,
             rst    => rst,
@@ -120,15 +202,15 @@ begin
     -- Main Time Management (Clock Core)
     -- Keeps track of the current time and handles UI modes
     -------------------------------------------------
-    CORE : entity work.time_core
+    CORE : time_core
         port map (
             clk        => clk,
             rst        => rst,
             btnL       => clean_btnL,
             btnR       => clean_btnR,
-            btn_c      => clean_btnC,
-            btn_up     => clean_btnU,
-            btn_down   => clean_btnD,
+            btn_c      => clean_btnC, 
+            btn_up     => clean_btnU, 
+            btn_down   => clean_btnD, 
             HH         => hh_core,
             MM         => mm_core,
             SS         => ss_core,
@@ -143,7 +225,7 @@ begin
     -- Alarm Storage and Monitoring System
     -- Stores alarm times and compares them with current time
     -------------------------------------------------
-    ALARM_SYS : entity work.alarm_system
+    ALARM_SYS : alarm_system
         port map (
             clk        => clk,
             rst        => rst,
@@ -173,7 +255,7 @@ begin
     -- 7-segment Display Driver
     -- Multiplexes data for the 8-digit 7-segment display
     -------------------------------------------------
-    DISP_DRV : entity work.display_driver
+    DISP_DRV : display_driver
         port map (
             clk        => clk,
             rst        => rst,
@@ -183,6 +265,8 @@ begin
             alarm_mm   => mm_alarm,
             view_mode  => view_sel_sig,
             set_en     => set_en_sig,
+            set_hh     => set_hh_sig,  
+            set_mm     => set_mm_sig,  
             seg_o      => seg,
             dig_o      => an,
             dp_o       => dp
@@ -199,9 +283,5 @@ begin
     led(0)           <= led_a1; 
     led(1)           <= led_a2;
     led(2)           <= led_a3;
-    
-    -- Turn off remaining unused LEDs
-    led(15 downto 3) <= (others => '0');
 
 end Behavioral;
-
