@@ -56,7 +56,7 @@ entity top_alarm_clock is
         an       : out std_logic_vector(7 downto 0);   -- Common anodes for 8 digits
         dp       : out std_logic;                      -- Decimal point output
         -- Peripheral Outputs
-        led      : out std_logic_vector(2 downto 0);   -- ZMÌNÌNO: Pouze 3 LED pro indikaci alarmù
+        led      : out std_logic_vector(2 downto 0);   -- ZMÃŒNÃŒNO: Pouze 3 LED pro indikaci alarmÃ¹
         buzzer   : out std_logic                       -- Output for piezo buzzer
     );
 end entity top_alarm_clock;
@@ -126,9 +126,9 @@ begin
             rst        => rst,
             btnL       => clean_btnL,
             btnR       => clean_btnR,
-            btn_c      => clean_btnC, -- V entitì time_core je btn_c (malá písmena)
-            btn_up     => clean_btnU, -- V entitì time_core je btn_up
-            btn_down   => clean_btnD, -- V entitì time_core je btn_down
+            btn_c      => clean_btnC, 
+            btn_up     => clean_btnU, 
+            btn_down   => clean_btnD, 
             HH         => hh_core,
             MM         => mm_core,
             SS         => ss_core,
