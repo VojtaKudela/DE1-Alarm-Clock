@@ -77,16 +77,16 @@ Stavy systému: Automat přepíná mezi stavy pro zobrazení aktuálního času 
 
 **Tabulka přechodů a výstupů**
 
-| Aktuální stav | mode_up_rise | mode_down_rise | Další stav |
-|--------------|--------------|----------------|------------|
-| TIME_VIEW    | 1            | 0              | AL1_VIEW   |
-| TIME_VIEW    | 0            | 1              | AL3_VIEW   |
-| AL1_VIEW     | 1            | 0              | AL2_VIEW   |
-| AL1_VIEW     | 0            | 1              | TIME_VIEW  |
-| AL2_VIEW     | 1            | 0              | AL3_VIEW   |
-| AL2_VIEW     | 0            | 1              | AL1_VIEW   |
-| AL3_VIEW     | 1            | 0              | TIME_VIEW  |
-| AL3_VIEW     | 0            | 1              | AL2_VIEW   |
+| Aktuální stav (`view_state`) | `mode_up_rise` | `mode_down_rise` | Následující stav | Kód stavu (`view_dbg`) | Výstup displeje (`view_sel`) |
+| :--- | :---: | :---: | :--- | :---: | :---: |
+| **TIME_VIEW** | `'1'` | `'0'` | **AL1_VIEW** | `"00"` | `"00"` |
+| **TIME_VIEW** | `'0'` | `'1'` | **AL3_VIEW** | `"00"` | `"00"` |
+| **AL1_VIEW**  | `'1'` | `'0'` | **AL2_VIEW** | `"01"` | `"01"` |
+| **AL1_VIEW**  | `'0'` | `'1'` | **TIME_VIEW**  | `"01"` | `"01"` |
+| **AL2_VIEW**  | `'1'` | `'0'` | **AL3_VIEW** | `"10"` | `"10"` |
+| **AL2_VIEW**  | `'0'` | `'1'` | **AL1_VIEW** | `"10"` | `"10"` |
+| **AL3_VIEW**  | `'1'` | `'0'` | **TIME_VIEW**  | `"11"` | `"11"` |
+| **AL3_VIEW**  | `'0'` | `'1'` | **AL2_VIEW** | `"11"` | `"11"` |
 
 **Poznámka:** Po resetu (`rst = '1'`) přejde automat vždy do výchozího stavu `TIME_VIEW`.
 
