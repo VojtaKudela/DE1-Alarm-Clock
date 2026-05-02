@@ -260,7 +260,8 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 <div><img src="Simulations/up_down_counter_sim.png" width="600" alt="Simulace čítače 2"></div>
 
 ### 8. Návrh posteru
-<img width="862" height="1149" alt="image" src="https://github.com/user-attachments/assets/4f80b331-321a-422d-baa8-b1197a40bd90" />
+<img width="759" height="1011" alt="image" src="https://github.com/user-attachments/assets/0e9bd56b-ad60-486e-93c5-5b95d919f0b9" />
+
 
 ### 9. Word dokument
 [Projekt.docx](https://github.com/user-attachments/files/27308645/Projekt.docx)
