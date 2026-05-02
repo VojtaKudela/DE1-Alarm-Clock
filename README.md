@@ -262,6 +262,9 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 ### 8. Návrh posteru
 <img width="862" height="1149" alt="image" src="https://github.com/user-attachments/assets/4f80b331-321a-422d-baa8-b1197a40bd90" />
 
+### 9. Word dokument
+[Projekt.docx](https://github.com/user-attachments/files/27308645/Projekt.docx)
+
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
 2. [DATASHEET for Pasive Buzzer HW-508 V0.2](https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf).
