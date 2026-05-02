@@ -97,7 +97,7 @@ Tento automat čeká na dlouhá podržení prostředního tlačítka po dobu **2
 
 
 <div align="center">
-  <img src="Images/Stavový diagram.drawio.png" width="450" alt="Stavový diagram">
+  <img src="Images/Stavový diagram.drawio.png" width="650" alt="Stavový diagram">
   <p>
     <em><strong>Tab. 1:</strong> Blokové schéma stavového automatu pro žízení hodin .</em>
   </p>
