@@ -58,13 +58,6 @@ Blok [`top_alarm_clock`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/mai
 ## Sofwarový popis
 Celé zařízení je možné si rozdělit do několika hlavních bloků: **TIME_CORE**, blok pro obsluhu displeje (např. **DISPLAY_DRIVER**) a generátorů časových základen (**CLOCK_ENABLE**). Každý z nich obsluhuje odlišnou část zařízení. 
 
-Blok **TIME_CORE** funguje jako hlavní mozek a má podřízenou logiku samotného počítání a uživatelského rozhraní. Obsahuje mimo jiné blok **MAIN_LOOP**, který umožňuje přechod zařízení mezi jednotlivými módy zobrazení a řeší logiku nastavování pomocí tlačítek. Dále obsahuje blok **TIME_COUNTER**, který uchovává přesný čas a hodnoty jednotlivých budíků. 
-
-Pomocný blok pro obsluhu displeje má za úkol převádět vnitřní BCD hodnoty času a stavové informace z `main_loop` na signály pro 7segmentový displej. Zajišťuje správné rozsvícení odpovídajících segmentů a anód pomocí multiplexování. O něm budou bližší informace v příslušné kapitole.
-
-Nezbytnou součástí jsou také obvody pro dělení hodinového signálu, které dodávají systému pulzy o frekvenci 1 Hz (pro samotný běh času a blikání dvojtečky) a 1 kHz (pro detekci dlouhého stisku tlačítek a multiplex displeje). Všechny tyto bloky jsou propojeny a zastřešeny hlavním design sourcem, obvykle nazvaným **TOP_LEVEL**, který je přímo provázán s fyzickými piny vývojové desky (tlačítka, přepínače a LED diody). 
-
-
 ### Nastavování hodin a budíku
 
 Blok `time_core` představuje hlavní _**"mozek"**_ celého budíku. Je zodpovědný za udržování přesného času a řízení logiky uživatelského rozhraní. Modul je vnitřně rozdělen na dvě hlavní části, a to `time_counter` a `main_loop`. 
