@@ -73,7 +73,7 @@ Tato část implementuje logiku přepínání mezi jednotlivými režimy zobraze
 
 1. _**Automat zobrazení**_ (`view_state`)**
    
-Stavy systému: Automat přepíná mezi stavy pro zobrazení aktuálního času  `TIME_VIEW`  anáhleda mezi třemi různými budíky  `AL1_VIEW` až `AL3_VIEW`. Tento automat mění stavy pouze tehdy, když se nic nenastavuje, tedy když `set_state = S_OFF`. K přepínání se používají zechycené hrany tlačítek `mode_up_rise` a `mode_down_rise`.
+Stavy systému: Automat přepíná mezi stavy pro zobrazení aktuálního času  `TIME_VIEW`  a dále mezi třemi různými budíky  `AL1_VIEW` až `AL3_VIEW`. Tento automat mění stavy pouze tehdy, když se nic nenastavuje, tedy když `set_state = S_OFF`. K přepínání se používají zechycené hrany tlačítek `mode_up_rise` a `mode_down_rise`.
 
 **Tabulka přechodů a výstupů**
 
@@ -94,7 +94,25 @@ Stavy systému: Automat přepíná mezi stavy pro zobrazení aktuálního času 
 
 Tento automat čeká na dlouhá podržení prostředního tlačítka po dobu **2s** a následně umožňuje přepínat mezi nystavováním hodin a minut. Jde o kombinaci Mooreona a Mealyho stavového automatu, protože signály `set_hh` a `set_mm` reagují na okamžitý stisk tlačítek, i když už ve stavu jsme.
 
+**Tabulka přechodů nastavovacího automatu:**
 
+| Aktuální stav (`set_state`) | Vstupní podmínka / Událost | Následující stav |
+| :--- | :--- | :--- |
+| **S_OFF** | `hold_cnt = LONG_PRESS` (tlačítko `set_btn` drženo 2s) | **S_HH** |
+| **S_HH**  | Krátký stisk `mode_up_rise = '1'` | **S_MM** |
+| **S_MM**  | Krátký stisk `mode_down_rise = '1'` | **S_HH** |
+| **S_HH**  | Krátký stisk `set_btn_rise = '1'` (Potvrzení a odchod) | **S_OFF** |
+| **S_MM**  | Krátký stisk `set_btn_rise = '1'` (Potvrzení a odchod) | **S_OFF** |
+
+**Tabulka hardwarových výstupů a Mealyho logiky:**
+
+*(Zkratka `U+D` znamená logický součet tlačítek: `up_btn OR down_btn`)*
+
+| Stav (`set_state`) | Kód stavu (`set_dbg`) | Povolení úprav (`set_en`) | Vstup HH (`set_hh`) | Vstup MM (`set_mm`) | Blikání dvojtečky (`dot_on`) | Běh času (`run_time`) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **S_OFF** | `"00"` | `'0'` | `'0'` | `'0'` | bliká 1 Hz (`ce_1s`) | `'1'` (Vždy běží) |
+| **S_HH**  | `"01"` | `'1'` | `U+D` | `'0'` | `'1'` (Trvale svítí) | `'0'` (Při `TIME_VIEW`), jinak `'1'` |
+| **S_MM**  | `"10"` | `'1'` | `'0'` | `U+D` | `'1'` (Trvale svítí) | `'0'` (Při `TIME_VIEW`), jinak `'1'` |
 
 <div align="center">
   <img src="Images/Stavový diagram.drawio.png" width="750" alt="Stavový diagram">
