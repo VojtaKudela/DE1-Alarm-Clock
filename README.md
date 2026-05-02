@@ -59,7 +59,7 @@ Blok [`top_alarm_clock`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/mai
 Celé zařízení je možno si rozdělit na několika částí. Každý z nich obsahuje odlišnou část zařízení. 
 
 
-### Nastavovíní hodin a budíku
+### Nastavování hodin a budíku
 
 Blok `time_core` představuje hlavní _**"mozek"**_ celého budíku. Je zodpovědný za udržování přesného času a řízení logiky uživatelského rozhraní. Modul je vnitřně rozdělen na dvě hlavní části, a to `time_counter` a `main_loop`. 
 
@@ -94,6 +94,14 @@ Stavy systému: Automat přepíná mezi stavy pro zobrazení aktuálního času 
 
 Tento automat čeká na dlouhá podržení prostředního tlačítka po dobu **2s** a následně umožňuje přepínat mezi nystavováním hodin a minut. Jde o kombinaci Mooreona a Mealyho stavového automatu, protože signály `set_hh` a `set_mm` reagují na okamžitý stisk tlačítek, i když už ve stavu jsme.
 
+
+
+<div align="center">
+  <img src="Images/Stavový diagram.drawio.png" width="450" alt="Stavový diagram">
+  <p>
+    <em><strong>Tab. 1:</strong> Blokové schéma stavového automatu pro žízení hodin .</em>
+  </p>
+</div>
 
 ### Display
 O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `driver_7seg_8digits`. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz. 
