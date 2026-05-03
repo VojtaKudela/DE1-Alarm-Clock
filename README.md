@@ -254,9 +254,24 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 <div><img src="Simulations/up_down_counter_sim(1).png" width="600" alt="Simulace čítače 1"></div>
 <div><img src="Simulations/up_down_counter_sim.png" width="600" alt="Simulace čítače 2"></div>
 
+### 8. Řídicí logika alarmu (`alarm_control`)
+Ověření komparační logiky pro spouštění budíku. Na průběhu je jasně vidět okamžik, kdy se aktuální čas (`curr_hh`, `curr_mm`, `curr_ss = 0`) shoduje s časem uloženým v paměti prvního budíku (`al1_h`, `al1_m`). Protože je tento budík uživatelem povolen (`en_al1 = '1'`), modul úspěšně vyvolá výstupní signál `ringing`.
+<div><img src="Simulations/alarm_control_sim.png" width="600" alt="Simulace alarm_control"></div>
+
+### 9. Hlavní čítač času (`time_counter`)
+Simulace jádra hodin, která zachycuje dva hlavní režimy. Nejdříve je vidět běžný chod času (`run_time = '1'`), a následně přechod do režimu manuálního nastavování (`set_en = '1'`). V tomto režimu simulace ověřuje inkrementaci hodin (`HH`) a minut (`MM`) pomocí tlačítek `btn_up` a `btn_down`, přičemž je vidět správná synchronní nulování sekund (`SS`).
+<div><img src="Simulations/time_counter_sim.png" width="600" alt="Simulace time_counter"></div>
+
+### 10. Stavový automat řízení (`main_loop`)
+Testování hlavní řídicí FSM logiky. Průběh demonstruje přepínání mezi režimy zobrazení (`view_sel`) pomocí navigačních tlačítek a následně ukazuje detekci dlouhého stisku potvrzovacího tlačítka (`set_btn`), čímž se systém přepne do editačního režimu (`set_en` přejde do logické 1) a postupně povoluje modifikaci hodin (`set_hh`) a minut (`set_mm`).
+<div><img src="Simulations/main_loop_sim.png" width="600" alt="Simulace main_loop"></div>
+
+### 11. Čítač pro multiplexování (`cnt_up_down`)
+Ověření chování 3bitového čítače, který zajišťuje adresaci pro zobrazení na 8místném displeji. Simulace potvrzuje plynulé a nepřerušené čítání hodnot od 0 do 7 a následné přetečení zpět na nulu na základě povolovacího signálu `en`.
+<div><img src="Simulations/cnt_up_down_sim.png" width="600" alt="Simulace cnt_up_down"></div>
 ### 8. Návrh posteru
 <img width="759" height="1011" alt="image" src="https://github.com/user-attachments/assets/0e9bd56b-ad60-486e-93c5-5b95d919f0b9" />
-
+<br>
 
 ### 9. PowerPoit dokument
 [Alarm Clock.pptx](https://github.com/user-attachments/files/27324396/Alarm.Clock.pptx)
