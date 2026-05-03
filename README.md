@@ -130,20 +130,19 @@ Displej je logicky rozdělen na tyto sekce:
 
 <br>
 <div align="center">
-  <table width="100%">
+  <table>
     <tr>
-      <td align="center"><b>Běžný režim<br>(Zobrazení času)</b></td>
-      <td align="center"><b>Režim prohlížení<br>(Náhled budíků)</b></td>
-      <td align="center"><b>Režim nastavování<br>(Nastavování blikající hodnoty)</b></td>
+      <td align="center"><b>Běžný režim (Zobrazení času)</b></td>
+      <td align="center"><b>Režim nastavení (Editace budíku)</b></td>
     </tr>
     <tr>
-      <td align="center"><img src="Images/display_time.svg" width="330" alt="Běžný čas"></td>
-      <td align="center"><img src="Images/display_mode_selection.svg" width="330" alt="Náhled budíků"></td>
-      <td align="center"><img src="Images/display_setting.svg" width="330" alt="Nastavení budíku"></td>
+      <td><img src="Images/display_time.svg" width="400" alt="Běžný čas"></td>
+      <td><img src="Images/display_mode_selection.svg" width="400" alt="Nastavení budíku"></td>
     </tr>
   </table>
 </div>
 <br>
+
 
 Řízení displeje je zajištěno spoluprací několika hlavních procesů a sub-modulů:
 
