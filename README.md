@@ -121,12 +121,13 @@ Tento automat čeká na dlouhá podržení prostředního tlačítka po dobu **2
 </div>
 
 ### Display
-O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `driver_7seg_8digits`. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz. 
+O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `display_driver`[cite: 1]. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování[cite: 2]. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz[cite: 1]. 
 
 Displej je logicky rozdělen na tyto sekce:
-* **Pravá část (AN0–AN3):** Slouží k zobrazení samotného času ve formátu `HH:MM`. Interní binární hodnoty jsou matematicky převáděny na desítky a jednotky (BCD formát), aby na displeji svítily správné číslice (0–9).
-* **Levá část (AN4–AN7):** Funguje jako stavový indikátor menu. Při sledování běžného času je tato část zcela zhasnuta. Jakmile uživatel přepne na budíky, zobrazí se zde text `AL_1`, `AL_2` nebo `AL_3`.
-* **Desetinná tečka (dvojtečka) (DP):** Při běžném chodu bliká s frekvencí 1 Hz (500 ms svítí, 500 ms nesvítí) a vizuálně tak oživuje chod hodin. Jakmile uživatel vstoupí do režimu nastavování času, tečka začne trvale svítit.
+* **Pravá část (AN0–AN3):** Slouží k zobrazení samotného času ve formátu `HH:MM`[cite: 2]. Interní binární hodnoty jsou matematicky převáděny na desítky a jednotky, aby na displeji svítily správné číslice (0–9)[cite: 1, 2]. Pokud je aktivní režim nastavování času, upravované číslice v rytmu blikají (tzv. blanking) pro lepší orientaci uživatele[cite: 1].
+* **Levá část (AN4–AN7):** Funguje jako stavový indikátor menu[cite: 2]. Při sledování běžného času se zde zobrazuje text `Hod `[cite: 1]. Jakmile uživatel přepne náhled na budíky, indikátor se změní na text `AL_1`, `AL_2` nebo `AL_3`[cite: 1].
+* **Desetinná tečka (dvojtečka) (DP):** Při běžném chodu bliká s frekvencí 1 Hz (500 ms svítí, 500 ms nesvítí) a vizuálně tak odděluje hodiny a minuty[cite: 1, 2]. Jakmile uživatel vstoupí do režimu nastavování času, tečka přestane blikat a svítí trvale[cite: 1].
+
 <br>
 <div align="center">
   <table>
@@ -141,16 +142,20 @@ Displej je logicky rozdělen na tyto sekce:
   </table>
 </div>
 <br>
-Řízení displeje je rozděleno do tří hlavních strukturálních bloků:
 
-1. **[`clk_en`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/clk_en.vhd) (Generátor povolovacího pulzu):**
-   Bere systémový hodinový signál (100 MHz) a funguje jako dělička frekvence. Každé 2 milisekundy (500 Hz) vygeneruje jeden krátký povolovací pulz (`en`), který dává pokyn k přepnutí na další cifru.
+Řízení displeje je zajištěno spoluprací několika hlavních procesů a sub-modulů:
 
-2. **[`cnt_up_down`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/cnt_up_down.vhd) (Čítač / Ukazatel adresy):**
-   Tříbitový synchronní čítač, který přijímá pulzy z `clk_en`. Neustále odpočítává v rozsahu od 7 do 0. Jeho aktuální hodnota slouží jako adresa, která říká nadřazenému multiplexoru, která z 8 cifer má být v danou chvíli fyzicky aktivní (rozsvícená).
+1. **`clk_en` (Generátory časování):**
+   Modul využívá dvě instance děličky frekvence ze základních 100 MHz[cite: 1]. První generuje **2ms** povolovací pulz (`sig_en_2ms`) pro samotné multiplexování[cite: 1]. Druhá generuje **500ms** pulz (`sig_en_500ms`) pro logiku blikání[cite: 1].
 
-3. **[`bin2seg`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/bin2seg.vhd) (Převodník / Dekodér znaků):**
-   Kombinační obvod, který funguje jako překladový slovník. Přijímá 5bitový datový signál a okamžitě ho převádí na 7bitový vektor pro jednotlivé segmenty (A-G) displeje. Obsahuje logiku pro číslice 0-9 a speciální znaky (A, L, _, H, o, d) potřebné pro navigaci v menu budíku.
+2. **Logika sestavení číslic a blikání (`p_digits` a `p_blink`):**
+   Proces neustále připravuje hodnoty pro všech 8 pozic displeje (interní signály `d0` až `d7`) v závislosti na zvoleném `view_mode`[cite: 1]. Zároveň sleduje stav nastavování – pokud uživatel mění například hodiny, proces maskuje data mezerou ("10000"), čímž vytváří efekt blikání[cite: 1].
+
+3. **`cnt_up_down` (Čítač / Ukazatel adresy):**
+   Tříbitový synchronní čítač, který přijímá pulzy z `clk_en`[cite: 1, 2]. Neustále odpočítává v rozsahu od 7 do 0[cite: 1]. Jeho aktuální hodnota slouží jako adresa, která říká nadřazenému multiplexoru, která z 8 cifer má být v danou chvíli fyzicky aktivní[cite: 1].
+
+4. **`bin2seg` (Převodník / Dekodér znaků):**
+   Kombinační obvod, který funguje jako překladový slovník[cite: 1, 2]. Přijímá 5bitový datový signál a okamžitě ho převádí na 7bitový vektor pro jednotlivé segmenty (A-G) displeje[cite: 1]. Obsahuje logiku pro číslice 0-9 a speciální znaky (A, L, _, H, o, d) potřebné pro navigaci v menu[cite: 1, 2].
 
 <div align="center">
   <img src="Images/bin2seg_tabulka_git.svg" width="450" alt="Pravdivostní tabulka bin2seg">
@@ -159,21 +164,11 @@ Displej je logicky rozdělen na tyto sekce:
   </p>
 </div>
 
-
 #### Architektura a princip multiplexování
-Samotný `driver_7seg_8digits` všechny tyto moduly propojuje a obsahuje centrální **multiplexor**. Ten sleduje aktuální hodnotu z čítače a na jejím základě provede tři akce současně:
-* Vybere správná 5bitová data ze vstupů (od nadřazeného hodinového modulu) a pošle je do dekodéru `bin2seg`.
-* Nastaví logickou "0" na příslušný pin sběrnice `AN` (Anody), čímž zapne napájení pouze pro konkrétní cifru na desce (běžící nula).
-* Vyhodnotí, zda má na dané pozici svítit desetinná tečka (`dp_o`), která v projektu slouží k indikaci plynoucích sekund (blikání 1 Hz) mezi hodinami a minutami.
-
-#### Blokové schéma řízení displeje
-<div align="center">
-  <img src="Images/driver_7seg_8digits.png" alt="Blokové schéma řízení displeje" width="700">
-  <p>
-    <em>Obr. 2: Interní blokové schéma modulu driver_7seg_8digits pro multiplexní řízení 8místného displeje.</em>
-  </p>
-</div>
-
+Samotný `display_driver` všechny tyto bloky propojuje a obsahuje centrální **multiplexor** (proces `p_mux`)[cite: 1]. Ten sleduje aktuální hodnotu z 3bitového čítače a na jejím základě provede tyto akce[cite: 1]:
+* Vybere správná předpřipravená 5bitová data (`d0`–`d7`) a pošle je do dekodéru `bin2seg`[cite: 1].
+* Nastaví logickou "0" na příslušný pin sběrnice `AN` (Anody), čímž zapne napájení pouze pro konkrétní cifru na desce[cite: 1].
+* Vyhodnotí, zda má na dané pozici svítit desetinná tečka (`dp_o`)[cite: 1].
 
 
 ### Alarm
