@@ -271,11 +271,11 @@ Ověření chování 3bitového čítače, který zajišťuje adresaci pro zobra
 <div><img src="Simulations/cnt_up_down_sim.png" width="600" alt="Simulace cnt_up_down"></div>
 <br>
 
-### 8. Návrh posteru
+## Návrh posteru
 <img width="759" height="1011" alt="image" src="https://github.com/user-attachments/assets/0e9bd56b-ad60-486e-93c5-5b95d919f0b9" />
 
 
-### 9. PowerPoit dokument
+## PowerPoit dokument
 [Alarm Clock.pptx](https://github.com/user-attachments/files/27324396/Alarm.Clock.pptx)
 
 ## REFERENCE
