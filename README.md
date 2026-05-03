@@ -133,7 +133,7 @@ Displej je logicky rozdělen na tyto sekce:
   <table>
     <tr>
       <td align="center"><b>Běžný režim (Zobrazení času)</b></td>
-      <td align="center"><b>Režim nastavení (Editace budíku)</b></td>
+      <td align="center"><b>Režim prohlížení (Náhled budíku)</b></td>
     </tr>
     <tr>
       <td><img src="Images/display_time.svg" width="400" alt="Běžný čas"></td>
