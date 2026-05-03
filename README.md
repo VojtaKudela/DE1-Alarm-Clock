@@ -130,16 +130,16 @@ Displej je logicky rozdělen na tyto sekce:
 
 <br>
 <div align="center">
-  <table>
+  <table width="100%">
     <tr>
       <td align="center"><b>Běžný režim<br>(Zobrazení času)</b></td>
       <td align="center"><b>Režim prohlížení<br>(Náhled budíků)</b></td>
       <td align="center"><b>Režim nastavování<br>(Nastavování blikající hodnoty)</b></td>
     </tr>
     <tr>
-      <td><img src="Images/display_time.svg" width="280" alt="Běžný čas"></td>
-      <td><img src="Images/display_mode_selection.svg" width="280" alt="Náhled budíků"></td>
-      <td><img src="Images/display_setting.svg" width="280" alt="Nastavení budíku"></td>
+      <td align="center"><img src="Images/display_time.svg" width="330" alt="Běžný čas"></td>
+      <td align="center"><img src="Images/display_mode_selection.svg" width="330" alt="Náhled budíků"></td>
+      <td align="center"><img src="Images/display_setting.svg" width="330" alt="Nastavení budíku"></td>
     </tr>
   </table>
 </div>
