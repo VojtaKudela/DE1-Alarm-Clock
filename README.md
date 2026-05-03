@@ -259,7 +259,7 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 
 
 ### 9. Word dokument
-[Projekt.docx](https://github.com/user-attachments/files/27308645/Projekt.docx)
+[Alarm Clock.pptx](https://github.com/user-attachments/files/27324396/Alarm.Clock.pptx)
 
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
