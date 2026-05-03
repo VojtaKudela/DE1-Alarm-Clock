@@ -62,11 +62,17 @@ Celé zařízení je možné si rozdělit do několika hlavních bloků: **TIME_
 
 Blok `time_core` představuje hlavní _**"mozek"**_ celého budíku. Je zodpovědný za udržování přesného času a řízení logiky uživatelského rozhraní. Modul je vnitřně rozdělen na dvě hlavní části, a to `time_counter` a `main_loop`. 
 
+![TIME_CORE](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/TIME_CORE.png)
+
 **1. Čítač času ([`time_counter`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/time_counter.vhd))**
 
 Jedná se o čítač, který zpracovává impulsy o frekvenci 1 Hz (sekundové tiky). Jeho princip spočívá v tom, že čítač inkrementuje vteřiny do 59, následně přičte minutu a po dosažení 59 minut inkrementuje hodiny (v režimu 00–23). Modul umožňuje přímý zápis (nastavení) hodin a minut pomocí signálů `set_h` a `set_m`. Při nastavování se vteřiny automaticky vynulují, aby byl zajištěn přesný start měření.
 
+![TIME_COUNTER](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/TIME_COUNTER.png)
+
 **2. Stavový automat hodin ([`main_loop`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/main_loop.vhd))**
+
+![MAIN_LOOP](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/MAIN_LOOP.png)
 
 Tato část implementuje logiku přepínání mezi jednotlivými režimy zobrazení a nastavení. Je tvořen dvěmi nezávislými stavovými automaty, které běží paralelně:
 
@@ -123,6 +129,8 @@ Tento automat čeká na dlouhá podržení prostředního tlačítka po dobu **2
 ### Display
 O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `display_driver`. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz. 
 
+![DISPLAY-DRIVER](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/DISPLAY_DRIVER.png)
+
 Displej je logicky rozdělen na tyto sekce:
 * **Pravá část (AN0–AN3):** Slouží k zobrazení samotného času ve formátu `HH:MM`. Interní binární hodnoty jsou matematicky převáděny na desítky a jednotky, aby na displeji svítily správné číslice (0–9). Pokud je aktivní režim nastavování času, upravované číslice svítí staticky a pouze při stisku tlačítka (inkrementaci/dekrementaci) krátce probliknou, což uživateli dává okamžitou vizuální zpětnou vazbu o změně hodnoty.
 * **Levá část (AN4–AN7):** Funguje jako stavový indikátor menu. Při sledování běžného času se zde zobrazuje text `Hod `. Jakmile uživatel přepne náhled na budíky, indikátor se změní na text `AL_1`, `AL_2` nebo `AL_3`.
@@ -149,14 +157,20 @@ Displej je logicky rozdělen na tyto sekce:
 1. **`clk_en` (Generátory časování):**
    Modul využívá dvě instance děličky frekvence ze základních 100 MHz. První generuje **2ms** povolovací pulz (`sig_en_2ms`) pro samotné multiplexování. Druhá generuje **500ms** pulz (`sig_en_500ms`) pro logiku blikání.
 
-2. **Logika sestavení číslic a blikání (`p_digits` a `p_blink`):**
+![CLOCK_ENABLE](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/CLOCK_ENABLE.png)
+
+3. **Logika sestavení číslic a blikání (`p_digits` a `p_blink`):**
    Proces neustále připravuje hodnoty pro všech 8 pozic displeje (interní signály `d0` až `d7`) v závislosti na zvoleném `view_mode`. Zároveň sleduje stav nastavování – pokud uživatel mění například hodiny, proces maskuje data mezerou ("10000"), čímž vytváří efekt blikání.
 
-3. **`cnt_up_down` (Čítač / Ukazatel adresy):**
+4. **`cnt_up_down` (Čítač / Ukazatel adresy):**
    Tříbitový synchronní čítač, který přijímá pulzy z `clk_en`. Neustále odpočítává v rozsahu od 7 do 0. Jeho aktuální hodnota slouží jako adresa, která říká nadřazenému multiplexoru, která z 8 cifer má být v danou chvíli fyzicky aktivní.
 
-4. **`bin2seg` (Převodník / Dekodér znaků):**
+![CNT_UP_DOWN](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/CNT_UP_DOWN.png)
+
+6. **`bin2seg` (Převodník / Dekodér znaků):**
    Kombinační obvod, který funguje jako překladový slovník. Přijímá 5bitový datový signál a okamžitě ho převádí na 7bitový vektor pro jednotlivé segmenty (A-G) displeje. Obsahuje logiku pro číslice 0-9 a speciální znaky (A, L, _, H, o, d) potřebné pro navigaci v menu.
+
+![BIN2SEG](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/BIN2SEG.png)
 
 <div align="center">
   <img src="Images/bin2seg_tabulka_git.svg" width="450" alt="Pravdivostní tabulka bin2seg">
@@ -171,6 +185,7 @@ Samotný `display_driver` všechny tyto bloky propojuje a obsahuje centrální *
 * Nastaví logickou "0" na příslušný pin sběrnice `AN` (Anody), čímž zapne napájení pouze pro konkrétní cifru na desce.
 * Vyhodnotí, zda má na dané pozici svítit desetinná tečka (`dp_o`).
 
+![DISPLAY_DRIVER](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/DISPLAY_DRIVER.png)
 
 ### Alarm
 Systém budíku je plně hardwarový a nevyužívá žádný mikrokontrolér. Jeho řízení je rozděleno do tří nezávislých podmodulů, které se starají o uchování času, porovnání s reálnými hodinami a generování akustického signálu.
@@ -180,15 +195,21 @@ Tento modul slouží jako nezávislé úložiště pro čas, na který je budík
 * Čas se ukládá do vnitřních registrů a výchozí hodnota po resetu je `00:00`.
 * Modul přijímá ošetřené signály z tlačítek (pulzy o délce jednoho taktu), pomocí kterých uživatel inkrementuje hodiny a minuty. Modul automaticky řeší přetečení (po 23. hodině následuje 0, po 59. minutě 0).
 
+![ALARM_MEMORY](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/ALARM_MEMORY.png)
+
 **2. Řídicí logika a FSM ([`alarm_control.vhd`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/alarm_control.vhd))**
 Jde o hlavní mozek celého alarmu. Obsahuje komparátor a stavový automat (FSM), který neustále porovnává reálný čas z hlavních hodin s časem uloženým v paměti budíku.
 * **Aktivace:** Budík zvoní pouze pokud jsou splněny dvě podmínky: přepínač na desce je v poloze ON a aktuální čas se přesně shoduje s nastaveným časem budíku (ve vteřině 00).
 * **Zastavení (Típnutí):** Jakmile budík začne zvonit, FSM se uzamkne ve stavu zvonění. K jeho zastavení musí uživatel stisknout levé tlačítko (`btnl`). FSM si toto stisknutí zapamatuje a alarm umlčí až do dalšího dne.
 
+![ALARM_CONTROL](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/ALARM_CONTROL.png)
+
 **3. Generátor signálu pro bzučák (`buzzer_driver.vhd`)**
 Piezo bzučák připojený na Pmod konektor potřebuje pro generování zvuku PWM signál, protože se nejedná o aktivní bzučák s vlastní oscilační frekvencí.
 * Modul generuje základní **tón o frekvenci cca 2 kHz** (lidskému uchu nepříjemný zvuk).
 * Aby budík nepískal jednolitě, je tento tón hardwarově modulován pomalejším signálem o frekvenci **2 Hz**. Výsledkem je přerušovaný, rytmický efekt "pípání-pípání-pípání", typický pro klasické digitální budíky.
+
+![BUZZER_DRIVER](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/BUZZER_DRIVER.png)
 
 ## Instrukční návod
 
