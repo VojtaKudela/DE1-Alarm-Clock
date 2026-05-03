@@ -270,6 +270,7 @@ Testování hlavní řídicí FSM logiky. Průběh demonstruje přepínání mez
 Ověření chování 3bitového čítače, který zajišťuje adresaci pro zobrazení na 8místném displeji. Simulace potvrzuje plynulé a nepřerušené čítání hodnot od 0 do 7 a následné přetečení zpět na nulu na základě povolovacího signálu `en`.
 <div><img src="Simulations/cnt_up_down_sim.png" width="600" alt="Simulace cnt_up_down"></div>
 <br>
+
 ### 8. Návrh posteru
 <img width="759" height="1011" alt="image" src="https://github.com/user-attachments/assets/0e9bd56b-ad60-486e-93c5-5b95d919f0b9" />
 
