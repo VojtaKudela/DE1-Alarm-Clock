@@ -258,7 +258,7 @@ Komplexní simulace obousměrného čítání času (HH:MM) s detekcí přeteče
 <img width="759" height="1011" alt="image" src="https://github.com/user-attachments/assets/0e9bd56b-ad60-486e-93c5-5b95d919f0b9" />
 
 
-### 9. Word dokument
+### 9. PowerPoit dokument
 [Alarm Clock.pptx](https://github.com/user-attachments/files/27324396/Alarm.Clock.pptx)
 
 ## REFERENCE
