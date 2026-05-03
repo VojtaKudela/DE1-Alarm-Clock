@@ -72,9 +72,9 @@ Jedná se o čítač, který zpracovává impulsy o frekvenci 1 Hz (sekundové t
 
 **2. Stavový automat hodin ([`main_loop`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/main_loop.vhd))**
 
-![MAIN_LOOP](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/MAIN_LOOP.png)
+Tato část implementuje logiku přepínání mezi jednotlivými režimy zobrazení a nastavení. Je tvořen dvěmi nezávislými stavovými automaty, které běží paralelně.
 
-Tato část implementuje logiku přepínání mezi jednotlivými režimy zobrazení a nastavení. Je tvořen dvěmi nezávislými stavovými automaty, které běží paralelně:
+![MAIN_LOOP](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/MAIN_LOOP.png)
 
 1. _**Automat zobrazení**_ (`view_state`)**
    
