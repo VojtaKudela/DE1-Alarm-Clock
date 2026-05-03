@@ -124,7 +124,7 @@ Tento automat čeká na dlouhá podržení prostředního tlačítka po dobu **2
 O zobrazování dat na 8místném sedmisegmentovém displeji desky Nexys A7 se stará modul `display_driver`. Aby bylo dosaženo rozsvícení všech 8 cifer „najednou“, využívá se principu rychlého multiplexování. Cifry se střídají každé 2 milisekundy (obnovovací frekvence 500 Hz), což lidské oko díky setrvačnosti vnímá jako souvislý obraz. 
 
 Displej je logicky rozdělen na tyto sekce:
-* **Pravá část (AN0–AN3):** Slouží k zobrazení samotného času ve formátu `HH:MM`. Interní binární hodnoty jsou matematicky převáděny na desítky a jednotky, aby na displeji svítily správné číslice (0–9). Pokud je aktivní režim nastavování času, upravované číslice v rytmu blikají (tzv. blanking) pro lepší orientaci uživatele.
+* **Pravá část (AN0–AN3):** Slouží k zobrazení samotného času ve formátu `HH:MM`. Interní binární hodnoty jsou matematicky převáděny na desítky a jednotky, aby na displeji svítily správné číslice (0–9). Pokud je aktivní režim nastavování času, upravované číslice svítí staticky a pouze při stisku tlačítka (inkrementaci/dekrementaci) krátce probliknou, což uživateli dává okamžitou vizuální zpětnou vazbu o změně hodnoty.
 * **Levá část (AN4–AN7):** Funguje jako stavový indikátor menu. Při sledování běžného času se zde zobrazuje text `Hod `. Jakmile uživatel přepne náhled na budíky, indikátor se změní na text `AL_1`, `AL_2` nebo `AL_3`.
 * **Desetinná tečka (dvojtečka) (DP):** Při běžném chodu bliká s frekvencí 1 Hz (500 ms svítí, 500 ms nesvítí) a vizuálně tak odděluje hodiny a minuty. Jakmile uživatel vstoupí do režimu nastavování času, tečka přestane blikat a svítí trvale.
 
