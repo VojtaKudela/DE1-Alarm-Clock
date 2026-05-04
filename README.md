@@ -296,7 +296,7 @@ Ověření chování 3bitového čítače, který zajišťuje adresaci pro zobra
 ## Návrh posteru
 <img width="865" height="1151" alt="image" src="https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Poster-1.jpg" />
 
-[Poster v PDF formě]()
+[Poster v PDF formě](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Poster.pdf)
 
 ## REFERENCE
 1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
