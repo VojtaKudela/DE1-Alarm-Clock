@@ -299,11 +299,17 @@ Ověření chování 3bitového čítače, který zajišťuje adresaci pro zobra
 [Poster v PDF formě](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Poster.pdf)
 
 ## REFERENCE
-1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/).
-2. [DATASHEET for Pasive Buzzer HW-508 V0.2](https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf).
-3. [Vytváření diagramů draw.io](https://www.drawio.com/).
+1. [Online VHDL Testbench Template Generator (lapinoo.net)](https://vhdl.lapinoo.net/testbench/)
+2. [DATASHEET for Pasive Buzzer HW-508 V0.2](https://digizone.com.ve/wp-content/uploads/2022/03/KY-006-Joy-IT.pdf)
+3. [Vytváření diagramů draw.io](https://www.drawio.com/)
+4. [Nexys A7 - Digilent Reference](https://digilent.com/reference/programmable-logic/nexys-a7/start)
+5. [VHDL code for digital clock on FPGA](https://www.fpga4student.com/2016/11/vhdl-code-for-digital-clock-on-fpga.html)
+6. [Digital Clock](https://github.com/Kshitiz-Bansal/Digital-Clock-VHDL/blob/main/Project_Description.pdf)
+7. [Alarm Clock VHDL Project Digilet Spartan-3](https://github.com/Kshitiz-Bansal/Digital-Clock-VHDL/blob/main/Project_Description.pdf)
+8. [Digital Clock in VHDL](https://www.instructables.com/Digital-Clock-in-VHDL/)
+9. [Digital Clock in VHDL (24-Hour Format – Semester Project)](https://s2sofficial.github.io/vhdl/DigitalClock/#-images)
 
 ### Pomoc s Githubem
-4. [Jak upravovat README](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-5. [Vytvoření složky](https://www.youtube.com/watch?v=FvCsnUgAdWA).
-6. [Jak nahrát soubor](https://www.youtube.com/watch?v=ATVm6ACERu8).
+10. [Jak upravovat README](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+11. [Vytvoření složky](https://www.youtube.com/watch?v=FvCsnUgAdWA).
+12. [Jak nahrát soubor](https://www.youtube.com/watch?v=ATVm6ACERu8).
