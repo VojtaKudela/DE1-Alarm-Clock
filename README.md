@@ -204,7 +204,7 @@ Jde o hlavní mozek celého alarmu. Obsahuje komparátor a stavový automat (FSM
 
 ![ALARM_CONTROL](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/ALARM_CONTROL.png)
 
-**3. Generátor signálu pro bzučák ([`buzzer_driver.vhd`])(https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/buzzer_driver.vhd)**
+**3. Generátor signálu pro bzučák ([`buzzer_driver.vhd`](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/MAIN/buzzer_driver.vhd))**
 Piezo bzučák připojený na Pmod konektor potřebuje pro generování zvuku PWM signál, protože se nejedná o aktivní bzučák s vlastní oscilační frekvencí.
 * Modul generuje základní **tón o frekvenci cca 2 kHz** (lidskému uchu nepříjemný zvuk).
 * Aby budík nepískal jednolitě, je tento tón hardwarově modulován pomalejším signálem o frekvenci **2 Hz**. Výsledkem je přerušovaný, rytmický efekt "pípání-pípání-pípání", typický pro klasické digitální budíky.
