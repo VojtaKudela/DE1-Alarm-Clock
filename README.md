@@ -6,7 +6,7 @@
 
 ## Teoretický popis
 
-Tento projekt se zaměřuje na realizaci plně funkčního digitálního budíku v jazyce VHDL. Cílem bylo vytvořit systém, který nejen přesně měří čas, ale také poskytuje pokročilé uživatelské rozhraní pro správu více budíků s funkcí odloženého buzení (Snooze). Návrh je postaven na principech synchronní číslicové techniky, modularity a efektivního využití hardwarových zdrojů.
+Tento projekt se zaměřuje na realizaci plně funkčního digitálního budíku v jazyce VHDL. Cílem bylo vytvořit systém, který nejen přesně měří čas, ale také poskytuje pokročilé uživatelské rozhraní pro správu více budíků s funkcí odloženého buzení (Snooze). Systém je cílen na vývojovou desku Nexys A7-50T (FPGA). Uživatelská interakce je řešena pomocí tlačítek a přepínačů s využitím digitální filtrace zákmitů (debouncing) a detekce délky stisku pro vstup do režimu nastavování času. K indikaci zapnutého budíku slouží LED diody, které jsou přiřazeny k příslušnému přepínači. K zobrazení času a menu se využívá 8místný 7segmentový displej řízený dynamickým multiplexováním. Hlavní řídicí logika a přechody mezi režimy jsou řešeny pomocí stavových automatů (FSM). Zvuková signalizace je zajištěna pasivním bzučákem pomocí generátoru signálu.
 
 ### Blokové schéma Alarm Clock
 ![Alarm Clock](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/Blokov%C3%A9_sch%C3%A9ma_fina.drawio.png)
