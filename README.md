@@ -173,7 +173,7 @@ Displej je logicky rozdělen na tyto sekce:
 ![BIN2SEG](https://github.com/VojtaKudela/DE1-Alarm-Clock/blob/main/Images/VHDL/BIN2SEG.png)
 
 <div align="center">
-  <img src="Images/bin2seg_tabulka.svg" width="450" alt="Pravdivostní tabulka bin2seg">
+  <img src="Images/bin2seg_tabulka.png" width="450" alt="Pravdivostní tabulka bin2seg">
   <p>
     <em><strong>Tab. 1:</strong> Pravdivostní tabulka dekodéru pro číslice 0–9 a speciální znaky (A, L, _, H, o, d). Signály jsou aktivní v logické 0 (Common Anode).</em>
   </p>
