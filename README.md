@@ -296,7 +296,7 @@ Ověření chování 3bitového čítače, který zajišťuje adresaci pro zobra
 ## Návrh posteru
 <img width="865" height="1151" alt="image" src="https://github.com/user-attachments/assets/51dd64cb-e5a3-4f6e-94ad-0ce979cbdd3e" />
 
-### PowerPoit dokument
+### PowerPoint dokument
 [Alarm Clock.pptx](https://github.com/user-attachments/files/27344939/Alarm.Clock.pptx)
 
 ## REFERENCE
